@@ -1,12 +1,93 @@
-<mat-toolbar class="mat-elevation-z4" style="background: black;">
-    <span style="color: white;"><img src="assets/icono.png" width="25" height="25" alt="icono"> EcoWorld</span>
-    <div class="spacer">
-    </div>
-    <a mat-button style="color: white;">Ingresar</a>
-    <a mat-raised-button color="accent">Registrarse</a>
-</mat-toolbar>
-<div class="container">
-    <div class="box">
+<div class="body">
+    <div class="w3-top" style="background: white;">
+        <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+          <a href="#home" class="w3-bar-item w3-button">EcoWorld</a>
+          <!-- Right-sided navbar links. Hide them on small screens -->
+          <div class="w3-right w3-hide-small">
+            <a href="#about" class="w3-bar-item w3-button">Nosotros</a>
+            <a href="#menu" class="w3-bar-item w3-button">Beneficios</a>
+            <a href="#contact" class="w3-bar-item w3-button">Contacto</a>
+          </div>
+        </div>
+      </div>
+      
+      <!--Header 
+      <header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
+        <img class="w3-image" src="https://i.ibb.co/C0JB8KD/inicio.png" alt="Imagen de una mano con una mata" width="1600" height="800">
+        <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+          <h1 class="w3-xxlarge" style="color: white;">EcoWorld</h1>
+        </div>
+      </header> -->
+
+      <header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px;" id="home">
+        <img class="w3-image" src="https://i.ibb.co/C0JB8KD/inicio.png" alt="Architecture" width="1500" height="800">
+        <div class="w3-display-middle w3-margin-top w3-center">
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-hide-small w3-text-light-grey">EcoWorld</span></h1>
+          <button (click)="openDialog()" mat-raised-button style="background-color: rgba(159,159,159,0.5); color: white;">Ingresar</button>
+        </div>
+      </header>
+      
+      <!-- Page content -->
+      <div class="w3-content" style="max-width:1100px">
+      
+        <!-- About Section -->
+        <div class="w3-row w3-padding-64" id="about">
+          <div class="w3-col m6 w3-padding-large w3-hide-small">
+           <img src="https://i.ibb.co/bXmkQz0/adult-analysis-brainstorming-coffee.jpg" class="w3-round w3-image w3-opacity-min" alt="Imagen de un escritorio" width="910" height="910">
+          </div>
+      
+          <div class="w3-col m6 w3-padding-large">
+            <h1 class="w3-center">¿Qué es EcoWorld?</h1><br>
+            <p class="w3-large">The Catering was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute iruredolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.We only use</p>
+          </div>
+        </div>
         
-    </div>
+        <hr>
+        
+        <!-- Menu Section -->
+        <div class="w3-row w3-padding-64" id="menu">
+          <div class="w3-col l6 w3-padding-large">
+            <h1 class="w3-center">Beneficios</h1><br>
+            <h4>Noticias</h4>
+            <p class="w3-text-grey">Los usuarios van a estar enterados de las noticias más recientes sobre el reciclaje.</p><br>
+          
+            <h4>Competencia</h4>
+            <p class="w3-text-grey">Top de las personas que más reciclan, los primero tres serán reconocidos con un premio cada mes.</p><br>
+          
+            <h4>Envíos</h4>
+            <p class="w3-text-grey">Posibilidad de que se lleven su material a reciclar sin salir de la casa.</p><br>
+          
+            <h4>Ubicaciones</h4>
+            <p class="w3-text-grey">¿No sabe dónde ir a reciclar? EcoWorld le mostrará los centros más cercanos.</p><br>
+          
+            <h4>Iniciativa</h4>
+            <p class="w3-text-grey">Emprender un nuevo centro de recolección está al alcance de tus manos.</p>    
+          </div>
+          
+          <div class="w3-col l6 w3-padding-large">
+            <img src="https://pbs.twimg.com/media/B8CmoaLCAAAgoY4.jpg:large" class="w3-round w3-image w3-opacity-min" alt="Menu" style="width:100%">
+          </div>
+        </div>
+      
+        <hr>
+      
+        <!-- Contact Section -->
+        <div class="w3-container w3-padding-64" id="contact">
+          <h1>Contacto</h1><br>
+          <p>Ofrecemos todos estos servicios, sin embargo, su opinión es muy importante para nosotros, no dude en contactarnos.</p>
+          <p>También puede contactarnos por teléfono 2758000 o enviar un correo a ecoworld@eco.cr o puede enviarnos un mensaje por aqui:</p>
+          <form action="/action_page.php" target="_blank">
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Nombre" required name="Name"></p>
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Mensaje \ Comentarios \ Opinión" required name="Message"></p>
+            <p><button mat-raised-button style="background: #22bb33; color: white;">ENVIAR MENSAJE</button></p>
+          </form>
+        </div>
+        
+      <!-- End page content -->
+      </div>
+      
+      <!-- Footer -->
+      <footer class="w3-center w3-light-grey w3-padding-32">
+        <p> EcoWorld © 2020 </p>
+      </footer>
 </div>

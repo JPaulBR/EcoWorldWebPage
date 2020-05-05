@@ -1,0 +1,127 @@
+<mat-card class="mat-elevation-z12">
+    <!--<mat-card-title style="text-align:center;">Ingresar</mat-card-title>-->
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="Ingresar">
+          <mat-card-content>
+            <form action="">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Email"
+                  required
+                  name="email"
+                  ngModel
+                  #email="ngModel">
+                  <mat-error *ngIf="email.invalid">Email is required</mat-error>
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Password"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="password"
+                  ngModel
+                  #password="ngModel">
+                  <mat-error
+                    *ngIf="password.errors && password.errors.required">
+                    Password is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="password.errors && password.errors.minlength">
+                    Password must be of length 6
+                  </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <button
+                mat-raised-button
+                class="login-button"
+                style="background: #22BB33; color: white;">
+                Ingresar
+              </button>
+
+              <button
+                mat-raised-button
+                class="login-button"
+                style="background: #3b5998; color: white;">
+                Iniciar con Facebook
+              </button>
+            </form>
+          </mat-card-content>
+      </mat-tab>
+      <mat-tab label="Registrarme">
+        <mat-card-content>
+          <form action="">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Nombre"
+                required
+                name="name"
+                ngModel
+                #name="ngModel">
+              <mat-error
+                *ngIf="name.invalid">
+                El nombre es requerido
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Apellido/s"
+                  required
+                  name="lastName"
+                  ngModel
+                  #lastName="ngModel">
+                <mat-error
+                  *ngIf="lastName.invalid">
+                  El apellido/s es requerido
+                </mat-error>
+              </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Email"
+                required
+                name="email"
+                ngModel
+                #email="ngModel">
+                <mat-error *ngIf="email.invalid">Email is required</mat-error>
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Password"
+                type="password"
+                required
+                minlength="6"
+                name="password"
+                ngModel
+                #password="ngModel">
+                <mat-error
+                  *ngIf="password.errors && password.errors.required">
+                  Password is required
+                </mat-error>
+                <mat-error
+                  *ngIf="password.errors && password.errors.minlength">
+                  Password must be of length 6
+                </mat-error>
+              <mat-icon matSuffix>lock</mat-icon>
+
+            </mat-form-field>
+            <button
+              mat-raised-button
+              color="primary"
+              class="login-button"
+              style="background: #22BB33; color: white;">
+              Registrarme
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+</mat-card>
+  
