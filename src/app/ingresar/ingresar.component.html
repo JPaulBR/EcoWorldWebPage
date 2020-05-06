@@ -37,8 +37,10 @@
               </mat-form-field>
               <button
                 mat-raised-button
+                mat-dialog-close="true"
                 class="login-button"
-                style="background: #22BB33; color: white;">
+                style="background: #22BB33; color: white;"
+                (click)="goToMenu('menu')">
                 Ingresar
               </button>
 

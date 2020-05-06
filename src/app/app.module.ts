@@ -15,12 +15,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
-    IngresarComponent
+    IngresarComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
