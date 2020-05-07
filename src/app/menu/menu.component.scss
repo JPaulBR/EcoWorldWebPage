@@ -1,1 +1,12 @@
 h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+.example-header-image {
+    background-image: url('https://image.flaticon.com/icons/svg/1177/1177568.svg');
+    background-size: cover;
+  }
+
+  #container {height: 100%; width:100%; font-size: 0;}
+  #left, #middle, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+  #left {width: 20%;}
+  #middle {width: 55%; color: black; margin-top: 2%;}
+  #right {width: 25%;}

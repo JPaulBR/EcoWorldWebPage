@@ -17,9 +17,7 @@
         <i class="fa fa-bars"></i>
       </a>
     </div>
-  </div>
-  
-  <!-- Sidebar on small screens when clicking the menu icon -->
+    <!-- Sidebar on small screens when clicking the menu icon -->
   <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
     <a href="javascript:void(0)" (click)="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">X</a>
     <a href="#about" (click)="w3_close()" class="w3-bar-item w3-button">Campañas</a>
@@ -30,8 +28,59 @@
     <a href="#contact" (click)="w3_close()" class="w3-bar-item w3-button">Acerca de</a>
     <a href="#" class="w3-bar-item w3-button"><i></i>Salir</a>
   </nav>
-  <div class="w3-container w3-padding-32 w3-center">
-    <div style="display:block;margin:auto; margin-top: 3%; background: black; color:white;" width="800" height="533">
-        <div style="background: cyan; width: 50%; margin: auto; color: black;">Poner el contenido aqui</div>
-    </div>
 </div>
+  <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    <div class="w3-row">
+      <!--Columna de la izquierda -->
+      <div class="w3-col m3">
+        <div class="w3-card w3-round w3-white">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
+        <br>
+       <!--Fin de la columna de izquierda-->
+      </div>
+
+      <!-- Columna del centro -->
+      <div class="w3-col m7">
+        <div class="w3-row-padding">
+          <div class="w3-col m12">
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+              </mat-card-header>
+              <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+              <mat-card-content>
+                <p>
+                  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                  A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                  bred for hunting.
+                </p>
+              </mat-card-content>
+            </mat-card>
+            <br>
+            <div class="w3-card w3-round w3-white">
+              Agregar contenido noticias
+            </div>
+            <br>
+          </div>
+        </div>
+      <!--Fin de la columna del centro-->
+      </div>
+      <div class="w3-col m2">
+        <div class="w3-card w3-round w3-white w3-center">
+          <mat-card>
+            ADS
+          </mat-card>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
