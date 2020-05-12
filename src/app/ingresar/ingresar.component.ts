@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuariosService } from '../tablas/usuarios/usuarios.service';
-import { LocaldbService } from '../tablas/localdb/localdb.service';
-import { compilePipeFromMetadata } from '@angular/compiler';
 
 
 @Component({
@@ -77,6 +75,8 @@ export class IngresarComponent implements OnInit {
     this.apt.getUserByCredential(this.email1,this.password1).subscribe(res=>{
       if (res.length>0){
         this.router.navigate(['/',page])
+        let items="mail";
+        localStorage.setItem(items,this.email1);
       }
       else{
         this.openAlert("Usuario no existente")
@@ -142,6 +142,10 @@ export class IngresarComponent implements OnInit {
       this.iconPassword="visibility_off";
       this.typePassword="password";
     }
+  }
+
+  addInput(){
+    console.log("Funciona");
   }
 
 }

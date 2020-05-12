@@ -26,7 +26,8 @@
                   name="password"
                   [(ngModel)]="password1"
                   ngModel
-                  #password="ngModel">
+                  #password="ngModel"
+                  (keyup.enter)="logIn('menu')">
                   <mat-error
                     *ngIf="password.errors && password.errors.required">
                     La contraseña es requerida.
@@ -108,7 +109,8 @@
                 name="password"
                 [(ngModel)]="password2"
                 ngModel
-                #password="ngModel">
+                #password="ngModel"
+                (keyup.enter)="register('menu')">
                 <mat-icon matSuffix (click)="changeIcon()">{{iconPassword}}</mat-icon>
                 <mat-error
                   *ngIf="password.errors && password.errors.required">

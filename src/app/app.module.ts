@@ -20,12 +20,16 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 /* Firebase */ 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire'
 import { environment } from 'src/environments/environment';
+import { CampanasComponent } from './campanas/campanas.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CentrosComponent } from './centros/centros.component';
 
 
 @NgModule({
@@ -33,7 +37,10 @@ import { environment } from 'src/environments/environment';
     AppComponent,
     InicioComponent,
     IngresarComponent,
-    MenuComponent
+    MenuComponent,
+    CampanasComponent,
+    NavbarComponent,
+    CentrosComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +56,7 @@ import { environment } from 'src/environments/environment';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatCheckboxModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,

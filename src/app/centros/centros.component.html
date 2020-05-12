@@ -1,0 +1,136 @@
+<div class="body">
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+        <div class="w3-row">
+
+            <!--Columna de la izquierda -->
+            <div class="w3-col m3">
+                <div class="w3-card w3-round w3-white">
+          
+                </div>
+            <br>
+            <!--Fin de la columna de izquierda-->
+            </div>
+            
+            <div class="w3-col m7">
+                <div class="w3-row-padding">
+                    <div class="w3-col m12">
+                      <button mat-raised-button color="primary">Crear nuevo centro</button>
+                        <mat-card class="principalCard">
+                            <mat-tab-group>      
+                                <!--Pestaña actualizar-->
+                                <mat-tab label="Información del centro">
+                                  <div class="card text-center">
+                                    <div class="card text-center">
+                                      <div class="card-body">
+                                        <mat-form-field class="example-full-width">
+                                          <mat-label>Lugar</mat-label>
+                                          <input matInput type="text" readonly value="Seleccione el lugar">
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                          <mat-label>Horario</mat-label>
+                                          <input matInput placeholder="Por ejemplo: Lunes a viernes 10:00 - 15:00" type="text">
+                                        </mat-form-field>
+                                        <mat-form-field class="example-full-width">
+                                          <mat-label>Número de teléfono</mat-label>
+                                          <input matInput placeholder="Por ejemplo: 27580000" type="tel">
+                                        </mat-form-field>
+                                        <mat-card-subtitle class="ion-text-center"> <strong>Materiales permitidos</strong> </mat-card-subtitle>
+                                        <div class="containerflex">
+                                          <div class="containerflex" >
+                                            <img style="width: 30px;" src="{{imagenes[0]['a']}}" (click)="checkImages(0)">
+                                          </div>
+                                          <div class="containerflex" >
+                                            <img style="width: 27px;" src="{{imagenes[1]['a']}}" (click)="checkImages(1)">
+                                          </div>
+                                          <div class="containerflex" >
+                                            <img style="width: 30px;" src="{{imagenes[2]['a']}}" (click)="checkImages(2)">
+                                          </div>
+                                          <div class="containerflex">
+                                            <img style="width: 27px;" src="{{imagenes[3]['a']}}" (click)="checkImages(3)">
+                                          </div>
+                                          <div class="containerflex">
+                                            <img style="width: 30px;" src="{{imagenes[4]['a']}}" (click)="checkImages(4)">
+                                          </div>
+                                          <div class="containerflex">
+                                            <img style="width: 27px;" src="{{imagenes[5]['a']}}" (click)="checkImages(5)">
+                                          </div>
+                                      </div>
+                                      <br>
+                                      <div class="containerflex">
+                                        <div class="containerflex">
+                                          <a><button mat-raised-button color="warn">Borrar centro</button></a>
+                                        </div>
+                                        <div class="containerflex">
+                                          <a><button mat-raised-button style="background: #32be8f; color: white;">Actualizar centro</button></a>
+                                        </div>
+                                      </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-tab>
+                                <!--Pestaña recibir material-->
+                                <mat-tab label="Recibir material">
+                                  <div class="card text-center">
+                                    <div class="card text-center">
+                                      <div class="card-body">
+                                        <div class="containerSearch">
+                                          <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Ingrese el correo">
+                                            <div class="input-group-append">
+                                              <button class="btn btn-secondary" type="button">
+                                                <i class="fa fa-search"></i>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="false">
+                                          <img style="width: 35px; margin-top: 2%;" src="https://raw.githubusercontent.com/JPaulBR/EcoWorld/68fe26c9a15f2c9396f51c5a1c3fa8f1e05b71f3/src/assets/images/frown.svg">
+                                          <h6>No encontrado</h6>
+                                        </div>
+                                        <mat-card style="margin-top: 2%;">
+                                          <mat-card-header>
+                                            <div mat-card-avatar class="example-header-image"></div>
+                                            <mat-card-subtitle><strong>Usuario</strong> </mat-card-subtitle>
+                                            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                                          </mat-card-header>
+                                          <mat-card-subtitle class="ion-text-center"> <strong style="color: #32be8f;">Añadir puntos</strong> </mat-card-subtitle>
+                                          <mat-form-field class="example-full-width">
+                                            <mat-label>Plástico</mat-label>
+                                            <input matInput placeholder="0 kg" type="number">
+                                          </mat-form-field>
+                                          <mat-form-field class="example-full-width">
+                                            <mat-label>Aluminio</mat-label>
+                                            <input matInput placeholder="0 kg" type="number">
+                                          </mat-form-field>
+                                          <mat-form-field class="example-full-width">
+                                            <mat-label>Papel</mat-label>
+                                            <input matInput placeholder="0 kg" type="number">
+                                          </mat-form-field>
+                                          <mat-form-field class="example-full-width">
+                                            <mat-label>Tetra pack</mat-label>
+                                            <input matInput placeholder="0 kg" type="number">
+                                          </mat-form-field>
+                                          <mat-form-field class="example-full-width">
+                                            <mat-label>Vidrio</mat-label>
+                                            <input matInput placeholder="0 kg" type="number">
+                                          </mat-form-field>
+                                          <mat-form-field class="example-full-width">
+                                            <mat-label>Batería</mat-label>
+                                            <input matInput placeholder="0 kg" type="number">
+                                          </mat-form-field>
+                                          <button mat-button style="background: #32be8f; color: white;">Aceptar</button>
+                                        </mat-card>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-tab>
+                              </mat-tab-group>
+                            <!---->
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
