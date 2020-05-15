@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 /* Firebase */ 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -30,6 +31,7 @@ import { environment } from 'src/environments/environment';
 import { CampanasComponent } from './campanas/campanas.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CentrosComponent } from './centros/centros.component';
+import { PaginaEnviarComponent } from './pagina-enviar/pagina-enviar.component';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { CentrosComponent } from './centros/centros.component';
     MenuComponent,
     CampanasComponent,
     NavbarComponent,
-    CentrosComponent
+    CentrosComponent,
+    PaginaEnviarComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { CentrosComponent } from './centros/centros.component';
     MatInputModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
