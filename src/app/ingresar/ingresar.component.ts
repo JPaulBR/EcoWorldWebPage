@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuariosService } from '../tablas/usuarios/usuarios.service';
+import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class IngresarComponent implements OnInit {
 
 
   constructor(private router: Router,private snackBar: MatSnackBar,
-    private apt:UsuariosService) {}
+    private apt:UsuariosService,public dialogRef:MatDialogRef<IngresarComponent>,
+    @Inject(MAT_DIALOG_DATA) public message:string) {}
 
   ngOnInit(): void {
     this.iconPassword = "visibility_off";
@@ -74,9 +76,11 @@ export class IngresarComponent implements OnInit {
   existsUser(page:string){
     this.apt.getUserByCredential(this.email1,this.password1).subscribe(res=>{
       if (res.length>0){
-        this.router.navigate(['/',page])
         let items="mail";
         localStorage.setItem(items,this.email1);
+        this.router.navigate(['/',page]).then(res=>{
+          this.dialogRef.close();
+        })
       }
       else{
         this.openAlert("Usuario no existente")

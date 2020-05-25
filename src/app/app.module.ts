@@ -32,6 +32,7 @@ import { CampanasComponent } from './campanas/campanas.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CentrosComponent } from './centros/centros.component';
 import { PaginaEnviarComponent } from './pagina-enviar/pagina-enviar.component';
+import { TopComponent } from './top/top.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { PaginaEnviarComponent } from './pagina-enviar/pagina-enviar.component';
     CampanasComponent,
     NavbarComponent,
     CentrosComponent,
-    PaginaEnviarComponent
+    PaginaEnviarComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,

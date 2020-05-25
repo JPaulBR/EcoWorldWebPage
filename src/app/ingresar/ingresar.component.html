@@ -43,6 +43,7 @@
                 mat-dialog-close="true"
                 class="login-button"
                 style="background: #22BB33; color: white;"
+                (keyup.enter)="logIn('menu')"
                 (click)="logIn('menu')">
                 Ingresar
               </button>
@@ -126,6 +127,7 @@
               color="primary"
               class="login-button"
               style="background: #22BB33; color: white;"
+              (keyup.enter)="register('menu')"
               (click)="register('menu')">
               Registrarme
             </button>

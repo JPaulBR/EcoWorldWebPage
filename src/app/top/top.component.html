@@ -1,0 +1,58 @@
+<div class="body">
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:20px">
+        <div class="w3-row">
+
+            <!--Columna de la izquierda -->
+            <div class="w3-col m3">
+                <div class="w3-card w3-round w3-white">
+          
+                </div>
+            <br>
+            <!--Fin de la columna de izquierda-->
+            </div>
+
+            <!--Columna del centro-->
+            <div class="w3-col m7">
+                <div class="w3-row-padding">
+                    <div class="w3-col m12">
+                        <!-- Team -->
+                        <section id="team" class="pb-5">
+                            <div class="container">
+                                <h5 class="section-title h1">Top de las personas que más han reciclado</h5>
+                                <div class="row">
+                                <!-- Team member -->
+                                    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let i of users">
+                                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                            <div class="mainflip">
+                                                <div class="frontside">
+                                                    <div class="card">
+                                                        <div class="card-body text-center">
+                                                            <p><img class=" img-fluid" src={{i.img}} alt="card image"></p>
+                                                            <h4 class="card-title">{{i.name}}</h4>
+                                                            <a class="btn btn-primary btn-sm" style="color: white;"> #{{i.pos}}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="backside">
+                                                    <div class="card">
+                                                        <div class="card-body text-center mt-4">
+                                                            <h4 class="card-title">Información</h4>
+                                                            <p class="card-text">{{i.name}} ha reciclado un total de: <strong>0 kg.</strong> Si {{i.name}} hace la diferencia, usted también lo puede hacer. 🌎🌿🙌</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- ./Team member -->
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Team -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
