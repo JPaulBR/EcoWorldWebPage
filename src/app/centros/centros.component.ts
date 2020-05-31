@@ -17,6 +17,9 @@ export class CentrosComponent implements OnInit {
     {a:"assets/imagenes/bateria1.png"}
   ]
   flag1;flag2;flag3;flag4;flag5;flag6=false;
+  mostrar=false;
+  tabla = true;
+  agregar = false;
   constructor() { }
 
   ngOnInit(): void {
@@ -89,6 +92,24 @@ export class CentrosComponent implements OnInit {
         this.imagenes[i]["a"]="assets/imagenes/bateria2.png"
       }
     }
+  }
+
+  openTab(){
+    this.tabla = false;
+    this.mostrar = true;
+    this.agregar = false;
+  }
+
+  openTable(){
+    this.tabla = true;
+    this.mostrar = false;
+    this.agregar = false
+  }
+
+  openAdd(){
+    this.agregar = true;
+    this.tabla = false;
+    this.mostrar = false;
   }
 
 }

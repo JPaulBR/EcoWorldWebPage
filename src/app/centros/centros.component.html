@@ -13,8 +13,44 @@
             
             <div class="w3-col m7">
                 <div class="w3-row-padding">
-                    <div class="w3-col m12">
-                      <button mat-raised-button color="primary">Crear nuevo centro</button>
+                  <!--Cuadro de la tabla-->
+                  <div *ngIf="tabla" class="w3-col m12">
+                    <button (click)="openAdd()"mat-raised-button color="primary">Crear nuevo centro</button>
+                    <hr>
+                    <table class="table table-hover">
+                      <thead class="tableHeader">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Ubicación</th>
+                          <th scope="col">Teléfono</th>
+                          <th scope="col">Materiales</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr (click)="openTab()">
+                          <th scope="row">1</th>
+                          <td>Puerto viejo,Limón, Costa Rica</td>
+                          <td>27583011</td>
+                          <td>Aluminio, Plástico, Papel</td>
+                        </tr>
+                        <tr (click)="openTab()">
+                          <th scope="row">2</th>
+                          <td>San blas,Cartago, Costa Rica</td>
+                          <td>27583011</td>
+                          <td>Aluminio, Plástico, Papel</td>
+                        </tr>
+                        <tr (click)="openTab()">
+                          <th scope="row">3</th>
+                          <td>Ciudad quesada,Alajuela, Costa Rica</td>
+                          <td>27583012</td>
+                          <td>Aluminio, Plástico</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!--Cuadro de detalle de un centro-->
+                    <div *ngIf="mostrar" class="w3-col m12">
+                      <button (click)="openTable()" mat-raised-button color="primary">Volver</button>
                         <mat-card class="principalCard">
                             <mat-tab-group>      
                                 <!--Pestaña actualizar-->
@@ -127,6 +163,53 @@
                               </mat-tab-group>
                             <!---->
                         </mat-card>
+                    </div>
+                    <!--Fin de la línea-->
+                    <!--Cuadro de agregar-->
+                    <div *ngIf="agregar" class="w3-col m12">
+                      <button (click) ="openTable()" mat-raised-button color="primary">Cancelar</button>
+                      <hr>
+                      <div class="card text-center">
+                        <div class="card text-center">
+                          <div class="card-body">
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Lugar</mat-label>
+                              <input matInput type="text" readonly value="Seleccione el lugar">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Horario</mat-label>
+                              <input matInput placeholder="Por ejemplo: Lunes a viernes 10:00 - 15:00" type="text">
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                              <mat-label>Número de teléfono</mat-label>
+                              <input matInput placeholder="Por ejemplo: 27580000" type="tel">
+                            </mat-form-field>
+                            <mat-card-subtitle class="ion-text-center"> <strong>Materiales permitidos</strong> </mat-card-subtitle>
+                            <div class="containerflex">
+                              <div class="containerflex" >
+                                <img style="width: 30px;" src="{{imagenes[0]['a']}}" (click)="checkImages(0)">
+                              </div>
+                              <div class="containerflex" >
+                                <img style="width: 27px;" src="{{imagenes[1]['a']}}" (click)="checkImages(1)">
+                              </div>
+                              <div class="containerflex" >
+                                <img style="width: 30px;" src="{{imagenes[2]['a']}}" (click)="checkImages(2)">
+                              </div>
+                              <div class="containerflex">
+                                <img style="width: 27px;" src="{{imagenes[3]['a']}}" (click)="checkImages(3)">
+                              </div>
+                              <div class="containerflex">
+                                <img style="width: 30px;" src="{{imagenes[4]['a']}}" (click)="checkImages(4)">
+                              </div>
+                              <div class="containerflex">
+                                <img style="width: 27px;" src="{{imagenes[5]['a']}}" (click)="checkImages(5)">
+                              </div>
+                            </div>
+                            <br>
+                            <button mat-button style="background: #32be8f; color: white;">Agregar centro</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>

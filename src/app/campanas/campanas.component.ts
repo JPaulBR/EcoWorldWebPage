@@ -24,11 +24,11 @@ export class CampanasComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position:Position)=>{
         if (position){
           (mapboxgl as any).accessToken = environment.mapboxKey;
-          var lng = position.coords.longitude;
-          var lat = position.coords.latitude;
+          var lng = -83.04928633559825;//position.coords.longitude;
+          var lat = 9.997193220089883;//position.coords.latitude;
           this.mapa = new mapboxgl.Map({
             container: 'map', // container id
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/streets-v11', //9.997193220089883
             center: [lng, lat], // starting position lng lat
             zoom: 13.5 // starting zoom
           });

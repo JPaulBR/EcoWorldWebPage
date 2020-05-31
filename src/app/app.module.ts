@@ -33,6 +33,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CentrosComponent } from './centros/centros.component';
 import { PaginaEnviarComponent } from './pagina-enviar/pagina-enviar.component';
 import { TopComponent } from './top/top.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { TopComponent } from './top/top.component';
     NavbarComponent,
     CentrosComponent,
     PaginaEnviarComponent,
-    TopComponent
+    TopComponent,
+    PerfilComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

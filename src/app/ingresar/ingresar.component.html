@@ -7,7 +7,7 @@
               <mat-form-field>
                 <input
                   matInput
-                  placeholder="Email"
+                  placeholder="Correo"
                   required
                   name="email"
                   [(ngModel)]="email1"
@@ -19,7 +19,7 @@
               <mat-form-field>
                 <input
                   matInput
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   type={{typePassword}}
                   required
                   minlength="6"
@@ -53,6 +53,12 @@
                 class="login-button"
                 style="background: #3b5998; color: white;">
                 Iniciar con Facebook
+              </button>
+              <button
+                mat-button
+                class="login-button"
+                style="background: transparent; color: grey;">
+                Olvide mi contraseña
               </button>
             </form>
           </mat-card-content>
@@ -91,7 +97,7 @@
             <mat-form-field>
               <input
                 matInput
-                placeholder="Email"
+                placeholder="Correo"
                 required
                 name="email"
                 [(ngModel)]="email2"
@@ -103,7 +109,7 @@
             <mat-form-field>
               <input
                 matInput
-                placeholder="Password"
+                placeholder="Contraseña"
                 type={{typePassword}}
                 required
                 minlength="6"
