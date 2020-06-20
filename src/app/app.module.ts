@@ -36,6 +36,7 @@ import { PaginaEnviarComponent } from './pagina-enviar/pagina-enviar.component';
 import { TopComponent } from './top/top.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AboutComponent } from './about/about.component';
+import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { AboutComponent } from './about/about.component';
     PaginaEnviarComponent,
     TopComponent,
     PerfilComponent,
-    AboutComponent
+    AboutComponent,
+    EnviaCorreosComponent
   ],
   imports: [
     BrowserModule,

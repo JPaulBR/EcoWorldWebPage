@@ -181,9 +181,24 @@
                         </div>
                       </div>
                     </div>
+                    <!--Fin de la línea-->
+                    <!--Cuadro de permiso-->
+                    <div *ngIf="permiso" class="w3-col m12">
+                      <mat-card style="cursor: pointer;" (click)="openDialog()">
+                        <mat-card-header style="justify-content: center;">
+                          <mat-card-title>Información</mat-card-title>
+                        </mat-card-header>
+                        <img mat-card-image src="https://i.ibb.co/f4TDnT8/permisson.png" alt="Foto acerca del permiso">
+                        <mat-card-content>
+                          <p>
+                            Para acceder a esta sección del programa debe de tener permisos, si lo desea, no dude en contactarnos.
+                          </p>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                    <!--Fin de la línea-->
                 </div>
             </div>
-
         </div>
     </div>
 </div>

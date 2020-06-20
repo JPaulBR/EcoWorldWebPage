@@ -23,12 +23,6 @@
     margin: 0 auto;
 }
 
-@media only screen and (max-width: 700px){
-    .containerSearch{
-        width: 80%;
-    }
-}
-
 .example-full-width {
     width: 100%;
 }
@@ -58,4 +52,19 @@
 
 .clickInCenter{
     cursor: pointer;
+}
+
+.centerDialog .mat-dialog-container{
+    margin: 0 auto;
+    display: block;
+    margin-left: 15%;
+}
+
+@media only screen and (max-width: 700px){
+    .containerSearch{
+        width: 80%;
+    }
+    .centerDialog .mat-dialog-container{
+        margin-left: 0%;
+    }
 }

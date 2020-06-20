@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import {EnviaCorreosComponent} from '../envia-correos/envia-correos.component';
 
 @Component({
   selector: 'app-centros',
@@ -17,9 +19,25 @@ export class CentrosComponent implements OnInit {
     {a:"assets/imagenes/bateria1.png",material:"Batería",img:"bateria"}
   ]
   mostrar=false;
-  tabla = true;
+  tabla = false;
   agregar = false;
-  constructor() { }
+  permiso = true;
+  dialogRef: MatDialogRef <any> ;
+
+  constructor(private dialog: MatDialog) {
+
+  }
+
+  openDialog(){
+    this.dialogRef = this.dialog.open(EnviaCorreosComponent, {
+      height: '42%',
+      width: '47%',
+      panelClass: ["centerDialog"]
+    });
+    this.dialogRef.afterClosed().subscribe(result => {
+      this.dialogRef = null;
+  });
+  }
 
   ngOnInit(): void {
     
