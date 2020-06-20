@@ -38,9 +38,9 @@
                   </mat-error>
                 <mat-icon matSuffix (click)="changeIcon()">{{iconPassword}}</mat-icon>
               </mat-form-field>
+              <!--Estaba en login-->
               <button
                 mat-raised-button
-                mat-dialog-close="true"
                 class="login-button"
                 style="background: #22BB33; color: white;"
                 (keyup.enter)="logIn('menu')"
@@ -128,6 +128,7 @@
                   Contraseña ocupa un mínimo de 6 carácteres
                 </mat-error>
             </mat-form-field>
+            <!--Estaba en register-->
             <button
               mat-raised-button
               color="primary"

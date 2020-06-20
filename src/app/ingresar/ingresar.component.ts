@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { UsuariosService } from '../tablas/usuarios/usuarios.service';
 import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 
@@ -33,12 +33,16 @@ export class IngresarComponent implements OnInit {
 
   logIn(page:string){
     if (this.email1 === undefined || this.password1===undefined){
+      this.dialogRef.beforeClosed();
       this.openAlert("Campos vacíos");
     }
     else if (!this.validateEmail(this.email1)){
+      this.dialogRef.beforeClosed();
       this.openAlert("Correo inválido");
+      //this.openSnackBar("Correo inválido")
     }
     else if (!this.validatePassword(this.password1)){
+      this.dialogRef.beforeClosed();
       this.openAlert("Contraseña ocupa un mínimo de 6 carácteres");
     }
     else{
@@ -62,11 +66,11 @@ export class IngresarComponent implements OnInit {
     }
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-      panelClass: ['color-snackbar']
-    });
+  openSnackBar(message: string) {
+    let config = new MatSnackBarConfig();
+    config.panelClass = 'center-snackbar';
+    config.duration = 2000;
+    this.snackBar.open(message,"",config);
   }
 
   openAlert(message:string){
@@ -80,9 +84,12 @@ export class IngresarComponent implements OnInit {
         localStorage.setItem(items,this.email1);
         this.router.navigate(['/',page]).then(res=>{
           this.dialogRef.close();
-        })
+        }).then(r=>{
+          this.openSnackBar("Ingreso exitoso");          
+        });
       }
       else{
+        this.dialogRef.beforeClosed();
         this.openAlert("Usuario no existente")
       }
     });
@@ -91,12 +98,15 @@ export class IngresarComponent implements OnInit {
   register(page:string){
     if (this.email2 === undefined || this.password2===undefined
       || this.name1=== undefined || this.lastName1===undefined){
-      this.openAlert("Campos vacíos");
+        this.dialogRef.beforeClosed();
+        this.openAlert("Campos vacíos");
     }
     else if (!this.validateEmail(this.email2)){
+      this.dialogRef.beforeClosed();
       this.openAlert("Correo inválido");
     }
     else if (!this.validatePassword(this.password2)){
+      this.dialogRef.beforeClosed();
       this.openAlert("Contraseña ocupa un mínimo de 6 carácteres");
     }
     else{
@@ -118,11 +128,12 @@ export class IngresarComponent implements OnInit {
           urlFoto: "https://image.flaticon.com/icons/svg/1177/1177568.svg"
         }
         this.apt.addUser(listUser).then(res=>{
-          this.openSnackBar("Registrado exitosamente","Undo");
+          this.openSnackBar("Registrado exitosamente");
           this.clearData();
         });
       }
       else{
+        this.dialogRef.beforeClosed();
         this.openAlert("Correo existente");
       }
     });

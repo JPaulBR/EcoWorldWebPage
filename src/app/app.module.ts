@@ -21,7 +21,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 /* Firebase */ 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -67,6 +68,7 @@ import { AboutComponent } from './about/about.component';
     MatSnackBarModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,

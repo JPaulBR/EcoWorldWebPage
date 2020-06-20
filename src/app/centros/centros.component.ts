@@ -9,88 +9,33 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class CentrosComponent implements OnInit {
 
   imagenes=[
-    {a:"assets/imagenes/botella1.png"},
-    {a:"assets/imagenes/papel1.png"},
-    {a:"assets/imagenes/lata1.png"},
-    {a:"assets/imagenes/vidrio1.png"},
-    {a:"assets/imagenes/tetra1.png"},
-    {a:"assets/imagenes/bateria1.png"}
+    {a:"assets/imagenes/botella1.png",material:"Plástico",img:"botella"},
+    {a:"assets/imagenes/papel1.png",material:"Papel",img:"papel"},
+    {a:"assets/imagenes/lata1.png",material:"Aluminio",img:"lata"},
+    {a:"assets/imagenes/vidrio1.png",material:"Vidrio",img:"vidrio"},
+    {a:"assets/imagenes/tetra1.png",material:"Tetra pack",img:"tetra"},
+    {a:"assets/imagenes/bateria1.png",material:"Batería",img:"bateria"}
   ]
-  flag1;flag2;flag3;flag4;flag5;flag6=false;
   mostrar=false;
   tabla = true;
   agregar = false;
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.imagenes[2]["a"]);
-  }
-
-  over(){
-    console.log("Mouseover called");
+    
   }
 
   //i: is for posicion in the list (what kind of material is)
   checkImages(i:number){
-    if (i===0){
-      if (this.flag1){
-        this.flag1=false;
-        this.imagenes[i]["a"]="assets/imagenes/botella1.png"
-      }
-      else{
-        this.flag1=true;
-        this.imagenes[i]["a"]="assets/imagenes/botella2.png"
-      }
+    var imagen= this.imagenes[i]["a"];
+    var swap = this.imagenes[i]["img"];
+    var path = "assets/imagenes/"+swap+"1"+".png";
+    if (imagen===path){
+      var path = "assets/imagenes/"+swap+"2"+".png";
+      this.imagenes[i]["a"]=path; 
     }
-    if (i===1){
-      if (this.flag2){
-        this.flag2=false;
-        this.imagenes[i]["a"]="assets/imagenes/papel1.png"
-      }
-      else{
-        this.flag2=true;
-        this.imagenes[i]["a"]="assets/imagenes/papel2.png"
-      }
-    }
-    if (i===2){
-      if (this.flag3){
-        this.flag3=false;
-        this.imagenes[i]["a"]="assets/imagenes/lata1.png"
-      }
-      else{
-        this.flag3=true;
-        this.imagenes[i]["a"]="assets/imagenes/lata2.png"
-      }
-    }
-    if (i===3){
-      if (this.flag4){
-        this.flag4=false;
-        this.imagenes[i]["a"]="assets/imagenes/vidrio1.png"
-      }
-      else{
-        this.flag4=true;
-        this.imagenes[i]["a"]="assets/imagenes/vidrio2.png"
-      }
-    }
-    if (i===4){
-      if (this.flag5){
-        this.flag5=false;
-        this.imagenes[i]["a"]="assets/imagenes/tetra1.png"
-      }
-      else{
-        this.flag5=true;
-        this.imagenes[i]["a"]="assets/imagenes/tetra2.png"
-      }
-    }
-    if (i===5){
-      if (this.flag6){
-        this.flag6=false;
-        this.imagenes[i]["a"]="assets/imagenes/bateria1.png"
-      }
-      else{
-        this.flag6=true;
-        this.imagenes[i]["a"]="assets/imagenes/bateria2.png"
-      }
+    else{
+      this.imagenes[i]["a"]=path;
     }
   }
 
@@ -98,18 +43,29 @@ export class CentrosComponent implements OnInit {
     this.tabla = false;
     this.mostrar = true;
     this.agregar = false;
+    this.clearList();
   }
 
   openTable(){
     this.tabla = true;
     this.mostrar = false;
-    this.agregar = false
+    this.agregar = false;
+    this.clearList();
   }
 
   openAdd(){
     this.agregar = true;
     this.tabla = false;
     this.mostrar = false;
+    this.clearList();
+  }
+
+  clearList(){
+    for (var i=0;i<6;i++){
+      var swap = this.imagenes[i]["img"];
+      var path = "assets/imagenes/"+swap+"1"+".png";
+      this.imagenes[i]["a"]=path;      
+    }    
   }
 
 }

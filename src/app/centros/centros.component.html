@@ -27,19 +27,19 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr (click)="openTab()">
+                        <tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
                           <th scope="row">1</th>
                           <td>Puerto viejo,Limón, Costa Rica</td>
                           <td>27583011</td>
                           <td>Aluminio, Plástico, Papel</td>
                         </tr>
-                        <tr (click)="openTab()">
+                        <tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
                           <th scope="row">2</th>
                           <td>San blas,Cartago, Costa Rica</td>
                           <td>27583011</td>
                           <td>Aluminio, Plástico, Papel</td>
                         </tr>
-                        <tr (click)="openTab()">
+                        <tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
                           <th scope="row">3</th>
                           <td>Ciudad quesada,Alajuela, Costa Rica</td>
                           <td>27583012</td>
@@ -72,25 +72,10 @@
                                         </mat-form-field>
                                         <mat-card-subtitle class="ion-text-center"> <strong>Materiales permitidos</strong> </mat-card-subtitle>
                                         <div class="containerflex">
-                                          <div class="containerflex" >
-                                            <img style="width: 30px;" src="{{imagenes[0]['a']}}" (click)="checkImages(0)">
+                                          <div class="containerflex" *ngFor="let data of imagenes; let j = index">
+                                            <img class="focus" matTooltip="{{data.material}}" src="{{data.a}}" (click)="checkImages(j)">
                                           </div>
-                                          <div class="containerflex" >
-                                            <img style="width: 27px;" src="{{imagenes[1]['a']}}" (click)="checkImages(1)">
-                                          </div>
-                                          <div class="containerflex" >
-                                            <img style="width: 30px;" src="{{imagenes[2]['a']}}" (click)="checkImages(2)">
-                                          </div>
-                                          <div class="containerflex">
-                                            <img style="width: 27px;" src="{{imagenes[3]['a']}}" (click)="checkImages(3)">
-                                          </div>
-                                          <div class="containerflex">
-                                            <img style="width: 30px;" src="{{imagenes[4]['a']}}" (click)="checkImages(4)">
-                                          </div>
-                                          <div class="containerflex">
-                                            <img style="width: 27px;" src="{{imagenes[5]['a']}}" (click)="checkImages(5)">
-                                          </div>
-                                      </div>
+                                        </div>
                                       <br>
                                       <div class="containerflex">
                                         <div class="containerflex">
@@ -185,24 +170,9 @@
                               <input matInput placeholder="Por ejemplo: 27580000" type="tel">
                             </mat-form-field>
                             <mat-card-subtitle class="ion-text-center"> <strong>Materiales permitidos</strong> </mat-card-subtitle>
-                            <div class="containerflex">
-                              <div class="containerflex" >
-                                <img style="width: 30px;" src="{{imagenes[0]['a']}}" (click)="checkImages(0)">
-                              </div>
-                              <div class="containerflex" >
-                                <img style="width: 27px;" src="{{imagenes[1]['a']}}" (click)="checkImages(1)">
-                              </div>
-                              <div class="containerflex" >
-                                <img style="width: 30px;" src="{{imagenes[2]['a']}}" (click)="checkImages(2)">
-                              </div>
-                              <div class="containerflex">
-                                <img style="width: 27px;" src="{{imagenes[3]['a']}}" (click)="checkImages(3)">
-                              </div>
-                              <div class="containerflex">
-                                <img style="width: 30px;" src="{{imagenes[4]['a']}}" (click)="checkImages(4)">
-                              </div>
-                              <div class="containerflex">
-                                <img style="width: 27px;" src="{{imagenes[5]['a']}}" (click)="checkImages(5)">
+                            <div class="containerflex" >
+                              <div class="containerflex" *ngFor="let data of imagenes; let j = index">
+                                <img class="focus" matTooltip="{{data.material}}" src="{{data.a}}" (click)="checkImages(j)">
                               </div>
                             </div>
                             <br>
