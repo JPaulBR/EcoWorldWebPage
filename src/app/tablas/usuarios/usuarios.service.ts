@@ -56,11 +56,11 @@ export class UsuariosService {
   }
 
   getUserByEmail(email:string){
-    var listaUsuarios = this.db2.collection<any>('usuario',ref => ref.where('email', '==', email));
+    var listaUsuarios = this.db2.collection<User>('usuario',ref => ref.where('email', '==', email));
     var usuarios = listaUsuarios.snapshotChanges().pipe(map(
       actions=>{
         return actions.map(a =>{
-          const data = a.payload.doc.data();
+          const data = a.payload.doc.data() as User;
           const id = a.payload.doc.id;
           return {id, ...data};
         });

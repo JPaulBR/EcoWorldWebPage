@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import {EnviaCorreosComponent} from '../envia-correos/envia-correos.component';
+import { UsuariosService } from '../tablas/usuarios/usuarios.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as mapboxgl from 'mapbox-gl';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-centros',
@@ -10,6 +14,7 @@ import {EnviaCorreosComponent} from '../envia-correos/envia-correos.component';
 })
 export class CentrosComponent implements OnInit {
 
+  mapa1:mapboxgl.Map;
   imagenes=[
     {a:"assets/imagenes/botella1.png",material:"Plástico",img:"botella"},
     {a:"assets/imagenes/papel1.png",material:"Papel",img:"papel"},
@@ -21,11 +26,68 @@ export class CentrosComponent implements OnInit {
   mostrar=false;
   tabla = false;
   agregar = false;
-  permiso = true;
-  dialogRef: MatDialogRef <any> ;
+  permiso = false;
+  dialogRef: MatDialogRef <any>;
 
-  constructor(private dialog: MatDialog) {
+  place:string;
+  schedule:string;
+  phone:string;
 
+  constructor(private dialog: MatDialog, private apt:UsuariosService,private modalService: NgbModal) {
+
+  }
+
+  ngOnInit(): void {
+    this.checkUser();
+  }
+
+  createMap(){
+    (mapboxgl as any).accessToken = environment.mapboxKey;
+    var lng = -83.04928633559825;//position.coords.longitude;
+    var lat = 9.997193220089883;//position.coords.latitude;
+    this.mapa1 = new mapboxgl.Map({
+      container: 'map1', // container id
+      style: 'mapbox://styles/mapbox/streets-v11', //9.997193220089883
+      center: [lng, lat], // starting position lng lat
+      zoom: 12 // starting zoom
+    });
+    this.mapa1.addControl(new mapboxgl.NavigationControl());
+    this.addMarker(lng,lat);
+  }
+
+  addMarker(lng,lat){
+    var marker = new mapboxgl.Marker({
+      draggable: true
+      })
+      .setLngLat([lng, lat])
+      .addTo(this.mapa1);
+    marker.on('drag',()=>{
+      //this.latlng = marker.getLngLat().lng+','+marker.getLngLat().lat;
+    });
+  }
+
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
+    this.createMap();
+  }
+
+  checkUser(){
+    var email = localStorage.getItem("mail");
+    this.apt.getUserByEmail(email).subscribe(dato=>{
+      var permiso = dato[0].permiso;
+      if (permiso){
+        this.mostrar=false;
+        this.tabla = true;
+        this.agregar = false;
+        this.permiso = false;        
+      }
+      else{
+        this.mostrar=false;
+        this.tabla = false;
+        this.agregar = false;
+        this.permiso = true;
+      }
+    });
   }
 
   openDialog(){
@@ -36,11 +98,7 @@ export class CentrosComponent implements OnInit {
     });
     this.dialogRef.afterClosed().subscribe(result => {
       this.dialogRef = null;
-  });
-  }
-
-  ngOnInit(): void {
-    
+    });
   }
 
   //i: is for posicion in the list (what kind of material is)
@@ -62,6 +120,7 @@ export class CentrosComponent implements OnInit {
     this.mostrar = true;
     this.agregar = false;
     this.clearList();
+    this.clearInputs();
   }
 
   openTable(){
@@ -69,6 +128,7 @@ export class CentrosComponent implements OnInit {
     this.mostrar = false;
     this.agregar = false;
     this.clearList();
+    this.clearInputs();
   }
 
   openAdd(){
@@ -76,6 +136,7 @@ export class CentrosComponent implements OnInit {
     this.tabla = false;
     this.mostrar = false;
     this.clearList();
+    this.clearInputs();
   }
 
   clearList(){
@@ -84,6 +145,20 @@ export class CentrosComponent implements OnInit {
       var path = "assets/imagenes/"+swap+"1"+".png";
       this.imagenes[i]["a"]=path;      
     }    
+  }
+
+  clearInputs(){
+    this.place="";
+    this.schedule="";
+    this.phone="";
+  }
+
+  addCenter(){
+    console.log("Agregado: "+this.schedule+" "+this.phone);
+  }
+
+  updateCenter(){
+    console.log("Agregado: "+this.schedule+" "+this.phone);
   }
 
 }

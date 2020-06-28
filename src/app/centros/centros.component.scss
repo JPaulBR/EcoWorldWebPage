@@ -66,5 +66,32 @@
     }
     .centerDialog .mat-dialog-container{
         margin-left: 0%;
+        width: 70%;
+        height: 65%;
     }
+    #sizeMap{
+        width: 400px;
+    }
+}
+
+#sizeMap{
+    height: 350px;
+    width: 495px;
+}
+
+.dark-modal .modal-content {
+    background-color: #292b2c;
+    color: white;
+  }
+  .dark-modal .close {
+    color: white;
+  }
+  .light-blue-backdrop {
+    background-color: #5cb3fd;
+  }
+
+#map1{
+    bottom: 0;
+    height: 100%;
+    width: 100%;
 }

@@ -60,15 +60,15 @@
                                       <div class="card-body">
                                         <mat-form-field class="example-full-width">
                                           <mat-label>Lugar</mat-label>
-                                          <input matInput type="text" readonly value="Seleccione el lugar">
+                                          <input [(ngModel)]="place" (click)="openVerticallyCentered(content)" matInput type="text" readonly>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                           <mat-label>Horario</mat-label>
-                                          <input matInput placeholder="Por ejemplo: Lunes a viernes 10:00 - 15:00" type="text">
+                                          <input [(ngModel)]="schedule" matInput placeholder="Por ejemplo: Lunes a viernes 10:00 - 15:00" type="text">
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                           <mat-label>Número de teléfono</mat-label>
-                                          <input matInput placeholder="Por ejemplo: 27580000" type="tel">
+                                          <input [(ngModel)]="phone" matInput placeholder="Por ejemplo: 27580000" type="tel">
                                         </mat-form-field>
                                         <mat-card-subtitle class="ion-text-center"> <strong>Materiales permitidos</strong> </mat-card-subtitle>
                                         <div class="containerflex">
@@ -82,7 +82,7 @@
                                           <a><button mat-raised-button color="warn">Borrar centro</button></a>
                                         </div>
                                         <div class="containerflex">
-                                          <a><button mat-raised-button style="background: #32be8f; color: white;">Actualizar centro</button></a>
+                                          <a><button (click)="updateCenter()" mat-raised-button style="background: #32be8f; color: white;">Actualizar centro</button></a>
                                         </div>
                                       </div>
                                       </div>
@@ -159,15 +159,15 @@
                           <div class="card-body">
                             <mat-form-field class="example-full-width">
                               <mat-label>Lugar</mat-label>
-                              <input matInput type="text" readonly value="Seleccione el lugar">
+                              <input [(ngModel)]="place" (click)="openVerticallyCentered(content)" matInput type="text" readonly>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                               <mat-label>Horario</mat-label>
-                              <input matInput placeholder="Por ejemplo: Lunes a viernes 10:00 - 15:00" type="text">
+                              <input [(ngModel)]="schedule" matInput placeholder="Por ejemplo: Lunes a viernes 10:00 - 15:00" type="text">
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                               <mat-label>Número de teléfono</mat-label>
-                              <input matInput placeholder="Por ejemplo: 27580000" type="tel">
+                              <input [(ngModel)]="phone" matInput placeholder="Por ejemplo: 27580000" type="tel">
                             </mat-form-field>
                             <mat-card-subtitle class="ion-text-center"> <strong>Materiales permitidos</strong> </mat-card-subtitle>
                             <div class="containerflex" >
@@ -176,7 +176,7 @@
                               </div>
                             </div>
                             <br>
-                            <button mat-button style="background: #32be8f; color: white;">Agregar centro</button>
+                            <button (click)="addCenter()" mat-button style="background: #32be8f; color: white;">Agregar centro</button>
                           </div>
                         </div>
                       </div>
@@ -202,3 +202,14 @@
         </div>
     </div>
 </div>
+
+<!--This is for the modal form-->
+<ng-template #content let-modal>
+  <div class="modal-body" id="sizeMap">
+    <div id="map1"></div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+    <button type="button" class="btn btn-success" (click)="modal.close('Close click')">Guardar</button>
+  </div>
+</ng-template>

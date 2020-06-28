@@ -37,6 +37,8 @@ import { TopComponent } from './top/top.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AboutComponent } from './about/about.component';
 import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -52,7 +54,7 @@ import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
     TopComponent,
     PerfilComponent,
     AboutComponent,
-    EnviaCorreosComponent
+    EnviaCorreosComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,8 +76,11 @@ import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    NgbPaginationModule,
+    NgbAlertModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],
