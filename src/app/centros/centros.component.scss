@@ -95,3 +95,21 @@
     height: 100%;
     width: 100%;
 }
+
+.snackbar{
+    text-align: center !important;
+    background: #BB2124;
+    color: white !important;
+    .mat-button-wrapper {
+        color: white;// action text color
+    }
+}
+
+.snackbar2{
+    text-align: center !important;
+    background: #38d39f;
+    color: white !important;
+    .mat-button-wrapper {
+        color: white;// action text color
+    }
+}

@@ -23,17 +23,17 @@
                           <th scope="col">#</th>
                           <th scope="col">Ubicación</th>
                           <th scope="col">Teléfono</th>
-                          <th scope="col">Materiales</th>
+                          <th scope="col">Horario</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
-                          <th scope="row">1</th>
-                          <td>Puerto viejo,Limón, Costa Rica</td>
-                          <td>27583011</td>
-                          <td>Aluminio, Plástico, Papel</td>
+                      <tbody *ngFor="let data of centers; let j = index">
+                        <tr (click)="loadDataCenter(j)" class="clickInCenter" matTooltip="Click para ver más información">
+                          <th scope="row">{{j+1}}</th>
+                          <td>{{data.lugar}}</td>
+                          <td>{{data.telefono}}</td>
+                          <td>{{data.horario}}</td>
                         </tr>
-                        <tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
+                        <!--<tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
                           <th scope="row">2</th>
                           <td>San blas,Cartago, Costa Rica</td>
                           <td>27583011</td>
@@ -44,7 +44,7 @@
                           <td>Ciudad quesada,Alajuela, Costa Rica</td>
                           <td>27583012</td>
                           <td>Aluminio, Plástico</td>
-                        </tr>
+                        </tr>-->
                       </tbody>
                     </table>
                   </div>
@@ -79,10 +79,10 @@
                                       <br>
                                       <div class="containerflex">
                                         <div class="containerflex">
-                                          <a><button mat-raised-button color="warn">Borrar centro</button></a>
+                                          <a><button (click)="deleteCenter()" mat-raised-button color="warn">Borrar centro</button></a>
                                         </div>
                                         <div class="containerflex">
-                                          <a><button (click)="updateCenter()" mat-raised-button style="background: #32be8f; color: white;">Actualizar centro</button></a>
+                                          <a><button (click)="addCenter()" mat-raised-button style="background: #32be8f; color: white;">Actualizar centro</button></a>
                                         </div>
                                       </div>
                                       </div>
@@ -210,6 +210,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
-    <button type="button" class="btn btn-success" (click)="modal.close('Close click')">Guardar</button>
+    <button type="button" class="btn btn-success" (click)="savePlace()">Guardar</button>
   </div>
 </ng-template>
