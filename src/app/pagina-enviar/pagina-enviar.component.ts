@@ -33,23 +33,15 @@ export class PaginaEnviarComponent implements OnInit {
   }
 
   geolocation(){
-    if (navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((position:Position)=>{
-        (mapboxgl1 as any).accessToken = environment.mapboxKey;
-        var lng = position.coords.longitude;
-        var lat = position.coords.latitude;
-        this.mapa = new mapboxgl1.Map({
-          container: 'map1', // container id
-          style: 'mapbox://styles/mapbox/streets-v11',
-          center: [lng, lat], // starting position lng lat
-          zoom: 9 // starting zoom
-        });
-        //this.mapa.addControl(new mapboxgl1.NavigationControl());
-      });
-    }
-    else{
-      console.log("No soportado");
-    }
+    (mapboxgl1 as any).accessToken = environment.mapboxKey;
+    var lng = -84.0000000;//position.coords.longitude;
+    var lat = 10.0000000;//position.coords.latitude;
+    this.mapa = new mapboxgl1.Map({
+      container: 'map1', // container id
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [lng, lat], // starting position lng lat
+      zoom: 5 // starting zoom
+    });
   }
 
   pay(){
@@ -138,6 +130,18 @@ export class PaginaEnviarComponent implements OnInit {
     this.loading = true;
     this.delay(2500).then(res=>{
       this.showBox = false;
+      if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition((position:Position)=>{
+          this.mapa.flyTo({
+            zoom: 15,
+            center: [position.coords.longitude,position.coords.latitude],
+            essential: true // this animation is considered essential with respect to prefers-reduced-motion
+          });
+        });
+      }
+      else{
+        console.log("No soportado");
+      }
     });
   }
 
