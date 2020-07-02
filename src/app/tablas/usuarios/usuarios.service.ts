@@ -84,4 +84,33 @@ export class UsuariosService {
     return lista.add(update);
   }
 
+  getUserByOrder(){
+    return this.db2.collection<any>('usuario',ref => ref.orderBy('reciclado','desc').where("reciclado",">",0).limit(50)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data() as User;
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
+  }
+
+  getUserByIdForPoints(id:string){
+    return this.db2.collection<any>('puntosXusuario',ref => ref.where('id', '==', id)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
+  }
+
+  updatePointForUser(id:string,update:any){
+    var lista = this.db2.collection<any>('puntosXusuario');
+    return lista.doc(id).update(update);
+  }
+
 }

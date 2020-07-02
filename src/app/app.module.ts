@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IngresarComponent } from './ingresar/ingresar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { HttpClientModule} from "@angular/common/http";
 
@@ -39,6 +39,7 @@ import { AboutComponent } from './about/about.component';
 import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
@@ -54,13 +55,14 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     TopComponent,
     PerfilComponent,
     AboutComponent,
-    EnviaCorreosComponent,
+    EnviaCorreosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -80,7 +82,8 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     NgbAlertModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    PipesModule
   ],
   providers: [],
   bootstrap: [AppComponent],
