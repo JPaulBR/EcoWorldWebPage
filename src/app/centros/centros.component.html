@@ -33,18 +33,6 @@
                           <td>{{data.telefono}}</td>
                           <td>{{data.horario}}</td>
                         </tr>
-                        <!--<tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
-                          <th scope="row">2</th>
-                          <td>San blas,Cartago, Costa Rica</td>
-                          <td>27583011</td>
-                          <td>Aluminio, Plástico, Papel</td>
-                        </tr>
-                        <tr (click)="openTab()" class="clickInCenter" matTooltip="Click para ver más información">
-                          <th scope="row">3</th>
-                          <td>Ciudad quesada,Alajuela, Costa Rica</td>
-                          <td>27583012</td>
-                          <td>Aluminio, Plástico</td>
-                        </tr>-->
                       </tbody>
                     </table>
                   </div>
@@ -96,7 +84,7 @@
                                       <div class="card-body">
                                         <div class="containerSearch">
                                           <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Ingrese el correo">
+                                            <input [(ngModel)]="user" type="text" class="form-control" placeholder="Ingrese el correo" (ngModelChange)="modelChange($event)" >
                                             <div class="input-group-append">
                                               <button class="btn btn-secondary" type="button">
                                                 <i class="fa fa-search"></i>
@@ -104,43 +92,45 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div *ngIf="false">
+                                        <div *ngIf="notFound">
                                           <img style="width: 35px; margin-top: 2%;" src="https://raw.githubusercontent.com/JPaulBR/EcoWorld/68fe26c9a15f2c9396f51c5a1c3fa8f1e05b71f3/src/assets/images/frown.svg">
                                           <h6>No encontrado</h6>
                                         </div>
-                                        <mat-card style="margin-top: 2%;">
-                                          <mat-card-header>
-                                            <div mat-card-avatar class="example-header-image"></div>
-                                            <mat-card-subtitle><strong>Usuario</strong> </mat-card-subtitle>
-                                            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                                          </mat-card-header>
-                                          <mat-card-subtitle class="ion-text-center"> <strong style="color: #32be8f;">Añadir puntos</strong> </mat-card-subtitle>
-                                          <mat-form-field class="example-full-width">
-                                            <mat-label>Plástico</mat-label>
-                                            <input matInput placeholder="0 kg" type="number">
-                                          </mat-form-field>
-                                          <mat-form-field class="example-full-width">
-                                            <mat-label>Aluminio</mat-label>
-                                            <input matInput placeholder="0 kg" type="number">
-                                          </mat-form-field>
-                                          <mat-form-field class="example-full-width">
-                                            <mat-label>Papel</mat-label>
-                                            <input matInput placeholder="0 kg" type="number">
-                                          </mat-form-field>
-                                          <mat-form-field class="example-full-width">
-                                            <mat-label>Tetra pack</mat-label>
-                                            <input matInput placeholder="0 kg" type="number">
-                                          </mat-form-field>
-                                          <mat-form-field class="example-full-width">
-                                            <mat-label>Vidrio</mat-label>
-                                            <input matInput placeholder="0 kg" type="number">
-                                          </mat-form-field>
-                                          <mat-form-field class="example-full-width">
-                                            <mat-label>Batería</mat-label>
-                                            <input matInput placeholder="0 kg" type="number">
-                                          </mat-form-field>
-                                          <button mat-button style="background: #32be8f; color: white;">Aceptar</button>
-                                        </mat-card>
+                                        <div *ngIf="found">
+                                          <mat-card style="margin-top: 2%;">
+                                            <mat-card-header>
+                                              <div mat-card-avatar id="example-header-image" style="background-image: url({{userData.urlFoto}});"></div>
+                                              <mat-card-subtitle><strong>Usuario</strong> </mat-card-subtitle>
+                                              <mat-card-subtitle>{{userData.nombre}} {{userData.apellido}}</mat-card-subtitle>
+                                            </mat-card-header>
+                                            <mat-card-subtitle class="ion-text-center"> <strong style="color: #32be8f;">Añadir puntos</strong> </mat-card-subtitle>
+                                            <mat-form-field class="example-full-width">
+                                              <mat-label>Plástico</mat-label>
+                                              <input [(ngModel)]="plastic" matInput placeholder="0 kg" type="number">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                              <mat-label>Aluminio</mat-label>
+                                              <input [(ngModel)]="alumn" matInput placeholder="0 kg" type="number">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                              <mat-label>Papel</mat-label>
+                                              <input [(ngModel)]="paper" matInput placeholder="0 kg" type="number">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                              <mat-label>Tetra pack</mat-label>
+                                              <input [(ngModel)]="tetra" matInput placeholder="0 kg" type="number">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                              <mat-label>Vidrio</mat-label>
+                                              <input [(ngModel)]="glass" matInput placeholder="0 kg" type="number">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                              <mat-label>Batería</mat-label>
+                                              <input [(ngModel)]="batery" matInput placeholder="0 kg" type="number">
+                                            </mat-form-field>
+                                            <button (click)= "update()"mat-button style="background: #32be8f; color: white;">Aceptar</button>
+                                          </mat-card>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>

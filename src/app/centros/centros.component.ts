@@ -7,8 +7,8 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { element } from 'protractor';
 import { CentrosService } from '../tablas/centros/centros.service';
+import { User } from '../tablas/usuarios/usuario';
 
 @Component({
   selector: 'app-centros',
@@ -48,9 +48,26 @@ export class CentrosComponent implements OnInit {
 
   centers:any;
 
+  user:string;
+
+  notFound:boolean=false;
+  found:boolean=false;
+
+  userData:User;
+  userPoints:any;
+
+  plastic: number=0;
+  alumn:number=0;
+  paper:number=0;
+  tetra:number=0;
+  glass:number=0;
+  batery:number=0;
+
   constructor(private dialog: MatDialog, private apt:UsuariosService,
     private modalService: NgbModal,private http:HttpClient,private snackBar: MatSnackBar,
     private apt2: CentrosService) {
+      //this.notFound = false;
+      //this.found = false;
   }
 
   ngOnInit(): void {
@@ -332,6 +349,61 @@ export class CentrosComponent implements OnInit {
       panelClass: [css],
       duration: 2000
     });
+  }
+
+  modelChange(event){
+    this.apt.getUserByEmail(this.user).subscribe(res=>{
+      if (res.length>0){
+        this.found = true;
+        this.notFound = false;
+        this.userData = res[0];
+        this.apt.getUserByIdForPoints(this.user).subscribe(resp=>{
+          this.userPoints = resp[0]
+        });
+        //var img1 = document.getElementById("example-header-image");
+        //img1.style.backgroundImage= "url("+this.userData.urlFoto+")";
+      }
+      else{
+        this.notFound = true;
+        this.found = false;
+      }
+    });
+  }
+
+  update(){
+    if (this.sumatory()>0){
+      var plastico = this.userPoints.cantPlastico+this.plastic;
+      var alumino = this.userPoints.cantAluminio+this.alumn;
+      var papel = this.userPoints.cantPaper+this.paper;
+      var tetra = this.userPoints.cantTetra+this.tetra;
+      var vidrio = this.userPoints.cantVidrio+this.glass;
+      var bateria = this.userPoints.cantBateria+this.batery;
+      var total = (this.sumatory())+this.userPoints.acumulado;
+      var lista = {
+        id: this.userPoints.id,
+        cantPlastico: plastico,
+        cantAluminio: alumino,
+        cantPaper: papel,
+        cantTetra: tetra,
+        cantVidrio: vidrio,
+        cantBateria: bateria,
+        acumulado: total
+      }
+      this.apt.getUserByEmail(this.user).subscribe(res=>{
+        res[0].reciclado = total;
+        this.apt.updateUser(res[0],res[0].id);
+      });
+      this.apt.updatePointForUser(this.userPoints.key,lista);
+      this.user = "";
+      this.openSnackBar("Datos actualizados","snackbar");
+    }
+    else{
+      this.openSnackBar("Sin cambios","snackbar2");
+    }
+  }
+
+  sumatory(){
+    return this.plastic+this.alumn+this.paper+this.tetra+this.glass+this.batery;
   }
 
 }
