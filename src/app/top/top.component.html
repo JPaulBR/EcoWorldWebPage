@@ -21,15 +21,15 @@
                                 <h5 class="section-title h1">Top de las personas que más han reciclado</h5>
                                 <div class="row">
                                 <!-- Team member -->
-                                    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let i of users">
+                                    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let i of users; let j = index">
                                         <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                                             <div class="mainflip">
                                                 <div class="frontside">
                                                     <div class="card">
                                                         <div class="card-body text-center">
-                                                            <p><img class=" img-fluid" src={{i.img}} alt="card image"></p>
-                                                            <h4 class="card-title">{{i.name}}</h4>
-                                                            <a class="btn btn-primary btn-sm" style="color: white;"> #{{i.pos}}</a>
+                                                            <p><img class=" img-fluid" src={{i.urlFoto}} alt="card image"></p>
+                                                            <h4 class="card-title">{{i.nombre}} {{i.apellido}}</h4>
+                                                            <a class="btn btn-primary btn-sm" style="color: white;"> #{{j+1}}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -37,7 +37,7 @@
                                                     <div class="card">
                                                         <div class="card-body text-center mt-4">
                                                             <h4 class="card-title">Información</h4>
-                                                            <p class="card-text">{{i.name}} ha reciclado un total de: <strong>12 kg.</strong> Si {{i.name}} hace la diferencia, usted también lo puede hacer. 🌎🌿🙌</p>
+                                                            <p class="card-text">{{i.nombre}} ha reciclado un total de: <strong>{{i.reciclado}} kg.</strong> Si {{i.nombre}} hace la diferencia, usted también lo puede hacer. 🌎🌿🙌</p>
                                                         </div>
                                                     </div>
                                                 </div>
