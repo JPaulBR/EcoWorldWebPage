@@ -25,6 +25,11 @@
     width: 100%;
 }
 
+@media only screen and (max-width: 700px) {
+    .col-sm-6 {
+      padding-top: 5%;
+    }
+}
 
 @keyframes spinner {
     to {transform: rotate(360deg);}
@@ -48,4 +53,27 @@
 
 #pointer{
     cursor: pointer;
+}
+
+.imgInfo{
+    width: 20px;
+    float: right;
+    cursor: pointer;
+}
+
+
+.modal-body{
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.8)
+      ),url('https://firebasestorage.googleapis.com/v0/b/ecoworld-5502f.appspot.com/o/imagenes%2FimageSend.svg?alt=media&token=86777d95-e7a3-4105-b8e6-94871e7edbf9');
+    background-repeat: no-repeat;
+    background-size: 255px 120px;
+    background-position: center;
+}
+
+.containerflex{
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
 }

@@ -16,25 +16,17 @@
                 <div class="w3-row-padding">
                     <div class="w3-col m12">
                         <mat-card>
-                            <h4> <strong> Seleccione los materiales a enviar</strong> </h4>
-                            <div class="containerflex">
-                                <div class="containerflex" id="pointer">
-                                  <img style="width: 30px;" src="{{imagenes[0]['a']}}" (click)="checkImages(0)">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h4> <strong> Seleccione los materiales a enviar</strong> </h4>
                                 </div>
-                                <div class="containerflex" id="pointer">
-                                  <img style="width: 27px;" src="{{imagenes[1]['a']}}" (click)="checkImages(1)">
+                                <div class="col-4">
+                                    <img (click)="openVerticallyCentered(content)" class="imgInfo" src="assets/imagenes/info.png" matTooltip="Tarifas de envíos">
                                 </div>
-                                <div class="containerflex" id="pointer">
-                                  <img style="width: 30px;" src="{{imagenes[2]['a']}}" (click)="checkImages(2)">
-                                </div>
-                                <div class="containerflex" id="pointer">
-                                  <img style="width: 27px;" src="{{imagenes[3]['a']}}" (click)="checkImages(3)">
-                                </div>
-                                <div class="containerflex" id="pointer">
-                                  <img style="width: 30px;" src="{{imagenes[4]['a']}}" (click)="checkImages(4)">
-                                </div>
-                                <div class="containerflex" id="pointer">
-                                  <img style="width: 27px;" src="{{imagenes[5]['a']}}" (click)="checkImages(5)">
+                            </div>
+                            <div class="containerflex" >
+                                <div class="containerflex" id="pointer" *ngFor="let data of imagenes; let j = index">
+                                  <img style="width: 30px;" matTooltip="{{data.material}}" src="{{data.a}}" (click)="checkImages(j)">
                                 </div>
                             </div>
                             <hr>
@@ -66,6 +58,40 @@
                 </div>
             </div>
             
+
         </div>
     </div>
 </div>
+<!--This is for the modal form-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Información de los precios</h4>
+    </div>
+    <div class="modal-body">
+        <div class="containerflex">
+            <div class="containerflex">
+                <img style="width: 30px;" src="assets/imagenes/tarifaBase.png">
+            </div>
+            <div class="containerflex">
+                <h3> <strong>Tarifa base</strong></h3>
+            </div>
+            <div class="containerflex">
+                <h3 style="color: green;"> <strong>1.5 $</strong></h3>
+            </div>
+        </div>
+        <div class="containerflex">
+            <div class="containerflex">
+                <img style="width: 30px;" src="assets/imagenes/tour.png">
+            </div>
+            <div class="containerflex">
+                <h3> <strong>Costo por km</strong></h3>
+            </div>
+            <div class="containerflex">
+                <h3 style="color: green;"> <strong>0.6 $</strong></h3>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="modal.close('Close click')" >Entendido</button>
+    </div>
+</ng-template>

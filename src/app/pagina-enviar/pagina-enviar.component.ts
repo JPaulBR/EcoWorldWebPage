@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as mapboxgl1 from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-pagina-enviar',
@@ -10,24 +11,24 @@ import { environment } from 'src/environments/environment';
 })
 export class PaginaEnviarComponent implements OnInit {
 
-  payButton:boolean;
   mapa:mapboxgl1.Map;
   showBox:boolean;
+  cash:boolean;
+  card: boolean = false;
   imagenes=[
-    {a:"assets/imagenes/botella1.png"},
-    {a:"assets/imagenes/papel1.png"},
-    {a:"assets/imagenes/lata1.png"},
-    {a:"assets/imagenes/vidrio1.png"},
-    {a:"assets/imagenes/tetra1.png"},
-    {a:"assets/imagenes/bateria1.png"}
-  ];
+    {a:"assets/imagenes/botella1.png",material:"Plástico",img:"botella",flag:false},
+    {a:"assets/imagenes/papel1.png",material:"Papel",img:"papel",flag:false},
+    {a:"assets/imagenes/lata1.png",material:"Aluminio",img:"lata",flag:false},
+    {a:"assets/imagenes/vidrio1.png",material:"Vidrio",img:"vidrio",flag:false},
+    {a:"assets/imagenes/tetra1.png",material:"Tetra pack",img:"tetra",flag:false},
+    {a:"assets/imagenes/bateria1.png",material:"Batería",img:"bateria",flag:false}
+  ]
   title = 'hello-world';
   loading = false;
-  flag1;flag2;flag3;flag4;flag5;flag6=false;
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar,private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.payButton = false;
+    this.cash = false;
     this.showBox = true;
     this.geolocation();
   }
@@ -46,12 +47,12 @@ export class PaginaEnviarComponent implements OnInit {
 
   pay(){
     var x = document.getElementById("cash");
-    if (this.payButton){
-      this.payButton=false;
+    if (this.cash){
+      this.cash=false;
       x.style.backgroundColor ="rgba(0,0,0,0.1)";
     }
     else{
-      this.payButton = true;
+      this.cash = true;
       x.style.backgroundColor ="rgba(50,190,143,0.5)";
     }
   }
@@ -64,89 +65,71 @@ export class PaginaEnviarComponent implements OnInit {
 
   //i: is for posicion in the list (what kind of material is)
   checkImages(i:number){
-    if (i===0){
-      if (this.flag1){
-        this.flag1=false;
-        this.imagenes[i]["a"]="assets/imagenes/botella1.png"
-      }
-      else{
-        this.flag1=true;
-        this.imagenes[i]["a"]="assets/imagenes/botella2.png"
-      }
+    var imagen= this.imagenes[i]["a"];
+    var swap = this.imagenes[i]["img"];
+    var path = "assets/imagenes/"+swap+"1"+".png";
+    if (imagen===path){
+      var path = "assets/imagenes/"+swap+"2"+".png";
+      this.imagenes[i]["a"]=path;
+      this.imagenes[i]["flag"]=true;
     }
-    if (i===1){
-      if (this.flag2){
-        this.flag2=false;
-        this.imagenes[i]["a"]="assets/imagenes/papel1.png"
-      }
-      else{
-        this.flag2=true;
-        this.imagenes[i]["a"]="assets/imagenes/papel2.png"
-      }
+    else{
+      this.imagenes[i]["a"]=path;
+      this.imagenes[i]["flag"]=false;
     }
-    if (i===2){
-      if (this.flag3){
-        this.flag3=false;
-        this.imagenes[i]["a"]="assets/imagenes/lata1.png"
+  }
+
+  clearList(){
+    for (var i=0;i<6;i++){
+      var swap = this.imagenes[i]["img"];
+      var path = "assets/imagenes/"+swap+"1"+".png";
+      this.imagenes[i]["a"]=path;
+      this.imagenes[i]["flag"]=false;      
+    }    
+  }
+
+  verifyList(){
+    var aux = false;
+    this.imagenes.forEach(element=>{
+      if(element.flag){
+        aux=true;
       }
-      else{
-        this.flag3=true;
-        this.imagenes[i]["a"]="assets/imagenes/lata2.png"
-      }
-    }
-    if (i===3){
-      if (this.flag4){
-        this.flag4=false;
-        this.imagenes[i]["a"]="assets/imagenes/vidrio1.png"
-      }
-      else{
-        this.flag4=true;
-        this.imagenes[i]["a"]="assets/imagenes/vidrio2.png"
-      }
-    }
-    if (i===4){
-      if (this.flag5){
-        this.flag5=false;
-        this.imagenes[i]["a"]="assets/imagenes/tetra1.png"
-      }
-      else{
-        this.flag5=true;
-        this.imagenes[i]["a"]="assets/imagenes/tetra2.png"
-      }
-    }
-    if (i===5){
-      if (this.flag6){
-        this.flag6=false;
-        this.imagenes[i]["a"]="assets/imagenes/bateria1.png"
-      }
-      else{
-        this.flag6=true;
-        this.imagenes[i]["a"]="assets/imagenes/bateria2.png"
-      }
-    }
+    });
+    return aux;
   }
 
   save(): void {
     this.loading = true;
-    this.delay(2500).then(res=>{
-      this.showBox = false;
-      if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition((position:Position)=>{
-          this.mapa.flyTo({
-            zoom: 15,
-            center: [position.coords.longitude,position.coords.latitude],
-            essential: true // this animation is considered essential with respect to prefers-reduced-motion
+    if (!this.verifyList()){
+      alert("Ingrese al menos un tipo de material a enviar.");
+      this.loading = false;
+    }
+    else{
+      this.delay(2500).then(res=>{
+        this.showBox = false;
+        if (navigator.geolocation){
+          navigator.geolocation.getCurrentPosition((position:Position)=>{
+            this.mapa.flyTo({
+              zoom: 15,
+              center: [position.coords.longitude,position.coords.latitude],
+              essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
           });
-        });
-      }
-      else{
-        console.log("No soportado");
-      }
-    });
+        }
+        else{
+          console.log("No soportado");
+        }
+      });
+    }
   }
 
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired")); 
+  }
+
+  //Método que abre el modal
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
   }
 
 }
