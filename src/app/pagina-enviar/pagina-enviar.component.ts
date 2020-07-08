@@ -3,6 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as mapboxgl1 from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UsuariosService } from '../tablas/usuarios/usuarios.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pagina-enviar',
@@ -25,7 +27,8 @@ export class PaginaEnviarComponent implements OnInit {
   ]
   title = 'hello-world';
   loading = false;
-  constructor(private snackBar: MatSnackBar,private modalService: NgbModal) { }
+  constructor(private snackBar: MatSnackBar,private modalService: NgbModal,
+    private apt2:UsuariosService,private http:HttpClient) { }
 
   ngOnInit(): void {
     this.cash = false;
@@ -43,6 +46,7 @@ export class PaginaEnviarComponent implements OnInit {
       center: [lng, lat], // starting position lng lat
       zoom: 5 // starting zoom
     });
+
   }
 
   pay(){
@@ -109,11 +113,24 @@ export class PaginaEnviarComponent implements OnInit {
         this.showBox = false;
         if (navigator.geolocation){
           navigator.geolocation.getCurrentPosition((position:Position)=>{
+            var lng = position.coords.longitude;
+            var lat = position.coords.latitude;
             this.mapa.flyTo({
-              zoom: 15,
-              center: [position.coords.longitude,position.coords.latitude],
+              zoom: 13.2,
+              center: [lng,lat],
               essential: true // this animation is considered essential with respect to prefers-reduced-motion
             });
+            this.mapa.addControl(new mapboxgl1.NavigationControl());
+            var email = localStorage.getItem("mail");
+            this.apt2.getUserByEmail(email).subscribe(dato=>{
+              var photo = dato[0].urlFoto;
+              var msj = "Estoy aquí";
+              this.createMarker(lng,lat,photo,msj);
+            });
+            var lng1 = -83.03168162521428;
+            var lat1 = 9.987411215113582;
+            this.createMarker(lng1,lat1,"https://image.flaticon.com/icons/svg/1554/1554633.svg","Voy de camino");
+            this.createRoute([lng,lat],[lng1,lat1],this.mapa);
           });
         }
         else{
@@ -130,6 +147,70 @@ export class PaginaEnviarComponent implements OnInit {
   //Método que abre el modal
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true });
+  }
+
+  createMarker(lng:any,lat:any,img:string,msj:string){
+    var im = document.createElement("img");
+    im.src = img;
+    im.style.width = "25px";
+    im.style.height = "25px";
+    if (msj==="Estoy aquí"){
+      im.style.width = "30px";
+      im.style.height = "30px";
+      im.style.borderRadius = "50%";
+    }
+    var popup = new mapboxgl1.Popup({ offset: 25 }).setHTML(msj);
+    new mapboxgl1.Marker(im)
+      .setLngLat([lng,lat])
+      .setPopup(popup)
+      .addTo(this.mapa);
+  }
+
+  createRoute(start:any,end:any,mapa:any){
+    var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] +
+    ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + environment.mapboxKey;
+    this.http.get(url).subscribe(res=>{
+      var data = res["routes"][0];
+      var route = data.geometry.coordinates;
+      var geojson  = {
+        type: 'Feature' as const,
+        properties: {},
+        geometry: {
+          type: 'LineString' as const,
+          coordinates: route
+        }
+      };
+      if (mapa.getSource("route")){
+        var r = mapa.getSource('route') as mapboxgl1.GeoJSONSource;
+        r.setData(geojson);
+      }
+      else{
+        mapa.addLayer({
+          id:"route",
+          type: "line",
+          source: {
+            type : "geojson",
+            data: {
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "LineString",
+                coordinates: geojson.geometry.coordinates
+              }
+            } 
+          },
+          layout: {
+            "line-join": "round",
+            "line-cap": "round"
+          },
+          paint:{
+            "line-color": "#3887be",
+            "line-width": 5,
+            "line-opacity": 0.75
+          }
+        });
+      }
+    });
   }
 
 }
