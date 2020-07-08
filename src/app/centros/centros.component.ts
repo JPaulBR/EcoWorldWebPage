@@ -360,8 +360,6 @@ export class CentrosComponent implements OnInit {
         this.apt.getUserByIdForPoints(this.user).subscribe(resp=>{
           this.userPoints = resp[0]
         });
-        //var img1 = document.getElementById("example-header-image");
-        //img1.style.backgroundImage= "url("+this.userData.urlFoto+")";
       }
       else{
         this.notFound = true;
@@ -395,15 +393,25 @@ export class CentrosComponent implements OnInit {
       });
       this.apt.updatePointForUser(this.userPoints.key,lista);
       this.user = "";
-      this.openSnackBar("Datos actualizados","snackbar");
+      this.openSnackBar("Datos actualizados","snackbar2");
+      this.clearNumbers();
     }
     else{
-      this.openSnackBar("Sin cambios","snackbar2");
+      this.openSnackBar("Sin cambios","snackbar");
     }
   }
 
   sumatory(){
     return this.plastic+this.alumn+this.paper+this.tetra+this.glass+this.batery;
+  }
+
+  clearNumbers(){
+    this.plastic=0;
+    this.alumn=0;
+    this.paper=0;
+    this.tetra=0;
+    this.glass=0;
+    this.batery=0;
   }
 
 }
