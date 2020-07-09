@@ -23,6 +23,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
 /* Firebase */ 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -75,6 +76,7 @@ import { PipesModule } from './pipes/pipes.module';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatSelectModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,

@@ -15,21 +15,29 @@
       <div class="w3-col m7">
         <div class="w3-row-padding">
           <div class="w3-col m12">
-            <mat-card>
+            <mat-form-field style="width: 300px; margin: 0 auto; display: block;">
+              <mat-label>Seleccione un filtro de búsqueda</mat-label>
+              <mat-select [(value)]="selected">
+                <mat-option value="option0">Todas las noticias</mat-option>
+                <mat-option value="option1">Nacionales</mat-option>
+                <mat-option value="option2">Internacionales</mat-option>
+                <mat-option value="option3">Consejos</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-card *ngFor="let i of listNews" style="margin-top: 2%;">
               <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Obras urgentes para la gestión de basuras</mat-card-title>
-                <mat-card-subtitle>19 Abril, 2020</mat-card-subtitle>
+                <div mat-card-avatar class="example-header-image" style="background-image: url({{i.fotoEmpresa}});"></div>
+                <mat-card-title>{{i.titulo}}</mat-card-title>
+                <mat-card-subtitle>{{i.fecha}}</mat-card-subtitle>
               </mat-card-header>
-              <img mat-card-image src="https://ep01.epimg.net/elpais/imagenes/2020/04/14/actualidad/1586869632_045453_1586870793_noticia_normal_recorte1.jpg" alt="Photo of a Shiba Inu">
+              <img mat-card-image src={{i.fotoNoticia}} alt="Photo of a Shiba Inu">
               <mat-card-content>
                 <p>
-                  El excesivo uso de vertederos demuestra la imperiosa necesidad de invertir en tratamiento y reciclaje
+                  {{i.miniDescripcion}}
                 </p>
               </mat-card-content>
             </mat-card>
-            <br>
-            <mat-card>
+            <!--<mat-card>
               <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>Las infinitas vidas del odiado plástico.</mat-card-title>
@@ -41,7 +49,7 @@
                   Relevo produce bolsas de basura a partir de material reciclado y factura cerca de tres millones de euros
                 </p>
               </mat-card-content>
-            </mat-card>
+            </mat-card>-->
             <br>
           </div>
         </div>
