@@ -3,6 +3,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CentrosService } from '../tablas/centros/centros.service';
+import { UsuariosService } from '../tablas/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-campanas',
@@ -13,7 +14,7 @@ export class CampanasComponent implements OnInit {
 
   mapa:mapboxgl.Map;
 
-  constructor(private http:HttpClient,private apt:CentrosService) { }
+  constructor(private http:HttpClient,private apt:CentrosService,private apt2:UsuariosService) { }
 
   ngOnInit(): void {
     this.getLocation();
@@ -47,9 +48,13 @@ export class CampanasComponent implements OnInit {
 
   //cargarlo de la base
   findUser(lng,lat){
-    var photo = "https://img.icons8.com/plasticine/2x/user.png";
-    var msj = "Estoy aquí";
-    this.createMarker(lng,lat,photo,msj);
+    var email = localStorage.getItem("mail");
+    var photo:string;
+    this.apt2.getUserByEmail(email).subscribe(res=>{
+      photo= res[0].urlFoto;
+      var msj = "Estoy aquí";
+      this.createMarker(lng,lat,photo,msj);
+    });
   }
 
   getCampaigns(){
