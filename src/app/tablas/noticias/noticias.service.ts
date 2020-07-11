@@ -25,6 +25,18 @@ export class NoticiasService {
     ));
   }
 
+  searchNew(value:string){
+    return this.db2.collection<any>('noticias',ref => ref.where('categoria', '==', value)).snapshotChanges().pipe(map(
+      actions=>{
+        return actions.map(a =>{
+          const data = a.payload.doc.data();
+          const key = a.payload.doc.id;
+          return {key, ...data};
+        });
+      }
+    ));
+  }
+
   getNew(id:string){
     return this.db2.collection<News>('noticias').doc(id).valueChanges();
   }

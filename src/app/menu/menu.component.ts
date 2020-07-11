@@ -14,9 +14,30 @@ export class MenuComponent implements OnInit {
   constructor(private apt:NoticiasService) { }
 
   ngOnInit(): void {
+    this.allNews();
+  }
+
+  allNews(){
+    this.listNews = null;
     this.apt.getNews().subscribe(dato =>{
       this.listNews = dato;
     });
+  }
+
+  filterNews(value:string){
+    this.listNews = null;
+    this.apt.searchNew(value).subscribe(dato=>{
+      this.listNews = dato;
+    });
+  }
+
+  changeOption(value:string){
+    if (value==='option0'){
+      this.allNews();
+    }
+    else{
+      this.filterNews(value);
+    }
   }
 
 }

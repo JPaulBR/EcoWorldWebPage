@@ -17,11 +17,11 @@
           <div class="w3-col m12">
             <mat-form-field style="width: 300px; margin: 0 auto; display: block;">
               <mat-label>Seleccione un filtro de búsqueda</mat-label>
-              <mat-select [(value)]="selected">
+              <mat-select [(value)]="selected" (selectionChange)="changeOption($event.value)">
                 <mat-option value="option0">Todas las noticias</mat-option>
-                <mat-option value="option1">Nacionales</mat-option>
-                <mat-option value="option2">Internacionales</mat-option>
-                <mat-option value="option3">Consejos</mat-option>
+                <mat-option value="Nacionales">Nacionales</mat-option>
+                <mat-option value="Internacionales">Internacionales</mat-option>
+                <mat-option value="Consejos">Consejos</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-card *ngFor="let i of listNews" style="margin-top: 2%;">
@@ -37,19 +37,6 @@
                 </p>
               </mat-card-content>
             </mat-card>
-            <!--<mat-card>
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Las infinitas vidas del odiado plástico.</mat-card-title>
-                <mat-card-subtitle>6 Enero, 2020</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src="https://ep01.epimg.net/economia/imagenes/2019/12/30/actualidad/1577724949_846465_1577725044_noticia_normal.jpg" alt="Photo of a Shiba Inu">
-              <mat-card-content>
-                <p>
-                  Relevo produce bolsas de basura a partir de material reciclado y factura cerca de tres millones de euros
-                </p>
-              </mat-card-content>
-            </mat-card>-->
             <br>
           </div>
         </div>
@@ -57,7 +44,6 @@
       </div>
       <div class="w3-col m2">
         <div class="w3-card w3-round w3-white w3-center">
-          
         </div>
         <br>
       </div>
