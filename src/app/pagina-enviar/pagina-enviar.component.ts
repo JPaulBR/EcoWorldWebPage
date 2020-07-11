@@ -108,6 +108,10 @@ export class PaginaEnviarComponent implements OnInit {
       alert("Ingrese al menos un tipo de material a enviar.");
       this.loading = false;
     }
+    else if (!this.cash){
+      alert("Ingrese un tipo de pago.");
+      this.loading = false;
+    }
     else{
       this.delay(2500).then(res=>{
         this.showBox = false;
