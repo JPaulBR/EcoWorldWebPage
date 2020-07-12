@@ -25,4 +25,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/',page]);
   }
 
+  openFromNav(page:string){
+    this.router.navigate(['/',page]);
+    this.w3_close();
+  }
+
 }
