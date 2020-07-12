@@ -10,20 +10,28 @@
       
         <div class="w3-white w3-text-grey w3-card-4">
           <div class="w3-display-container">
-            <img src="https://firebasestorage.googleapis.com/v0/b/ecoworld-5502f.appspot.com/o/imagenes%2F28698902_1834989749866795_4321561433880265847_o.jpg?alt=media&token=e36db01e-b064-48bd-98a9-5b03f68842cb" style="width:100%;" alt="Avatar">
+            <img src={{image}} style="width:100%;" alt="Avatar">
             <div class="w3-display-bottomleft w3-container">
-              <h2 style="color:white">Jane Doe</h2>
+              <label for="file-upload" class="custom-file-upload">
+                <i class="fa fa-upload fa-2x"></i>
+              </label>
+              <input id="file-upload" type="file" accept="image/*" (change)="showPreviewImage($event)"/>
             </div>
           </div>
           <br>
-          <div class="w3-container" style="margin: 0 auto;" *ngFor="let i of fills">
-              <mat-form-field class="example-full-width">
-                <mat-label>{{i.label}}</mat-label>
-                <input [(ngModel)]="i.value" matInput>
-              </mat-form-field>
+          <div class="w3-container col-8" style="margin: 0 auto;" *ngFor="let i of fills">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{i.label}}</mat-label>
+              <input [(ngModel)]="i.value" matInput [disabled]="i.disable" type={{i.type}}>
+              <mat-icon *ngIf="i.icon" matSuffix (click)="changeIcon()">{{iconPassword}}</mat-icon>
+            </mat-form-field>
           </div>
-        </div><br>
-  
+          <div class="w3-container col-8" style="margin: 0 auto;">
+            <button mat-raised-button (click)="updateData()" [disabled]="buttonDisabled">Actualizar</button>
+          </div>
+          <br>
+        </div>
+        <br>
       <!-- End Left Column -->
       </div>
   
@@ -41,7 +49,7 @@
                     <h3><strong>{{j.label}}</strong></h3>
                 </div>
                 <div class="containerflex">
-                    <h3> <strong>{{j.value}}</strong></h3>
+                    <h3> <strong>{{j.value}} kg</strong></h3>
                 </div>
             </div>
             <hr>
