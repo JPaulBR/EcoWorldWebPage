@@ -11,9 +11,11 @@ export class MenuComponent implements OnInit {
 
   selected = 'option0';
   listNews: any;
+  loading:boolean;
   constructor(private apt:NoticiasService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.allNews();
   }
 
@@ -21,6 +23,7 @@ export class MenuComponent implements OnInit {
     this.listNews = null;
     this.apt.getNews().subscribe(dato =>{
       this.listNews = dato;
+      this.loading=false;
     });
   }
 
@@ -38,6 +41,11 @@ export class MenuComponent implements OnInit {
     else{
       this.filterNews(value);
     }
+  }
+
+  visitSite(site:string){
+    //window.location.href = site;
+    location.href = site;
   }
 
 }
