@@ -41,6 +41,7 @@ import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from './pipes/pipes.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { PipesModule } from './pipes/pipes.module';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
     NgbModule,
-    PipesModule
+    PipesModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent],

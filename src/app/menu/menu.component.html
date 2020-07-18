@@ -24,13 +24,18 @@
                 <mat-option value="Consejos">Consejos</mat-option>
               </mat-select>
             </mat-form-field>
+            <div class="item" *ngIf="loading">
+              <ngx-skeleton-loader count="14" animation="pulse"></ngx-skeleton-loader>
+            </div>
             <mat-card *ngFor="let i of listNews" style="margin-top: 2%;">
-              <mat-card-header>
+              <mat-card-header *ngIf="!loading">
                 <div mat-card-avatar class="example-header-image" style="background-image: url({{i.fotoEmpresa}});"></div>
                 <mat-card-title>{{i.titulo}}</mat-card-title>
                 <mat-card-subtitle>{{i.fecha}}</mat-card-subtitle>
               </mat-card-header>
-              <img mat-card-image src={{i.fotoNoticia}} alt="Photo of a Shiba Inu">
+              <a href={{i.fuente}} target="_blank">
+                <img mat-card-image src={{i.fotoNoticia}} alt="Photo of a Shiba Inu">
+              </a>
               <mat-card-content>
                 <p>
                   {{i.miniDescripcion}}
