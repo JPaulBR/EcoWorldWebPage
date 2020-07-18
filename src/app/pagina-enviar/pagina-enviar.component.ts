@@ -38,13 +38,13 @@ export class PaginaEnviarComponent implements OnInit {
 
   geolocation(){
     (mapboxgl1 as any).accessToken = environment.mapboxKey;
-    var lng = -84.0000000;//position.coords.longitude;
-    var lat = 10.0000000;//position.coords.latitude;
+    var lng = -32.983362;//position.coords.longitude;
+    var lat = 13.389046;//position.coords.latitude;
     this.mapa = new mapboxgl1.Map({
       container: 'map1', // container id
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [lng, lat], // starting position lng lat
-      zoom: 5 // starting zoom
+      zoom: 2 // starting zoom
     });
 
   }
