@@ -16,7 +16,6 @@ export class TopComponent implements OnInit {
   ngOnInit(): void {
     this.apt.getUserByOrder().subscribe(res=>{
       this.users = res;
-      console.log(res);
     });
   }
 

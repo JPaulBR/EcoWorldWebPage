@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as mapboxgl1 from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
@@ -9,14 +9,18 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-pagina-enviar',
   templateUrl: './pagina-enviar.component.html',
-  styleUrls: ['./pagina-enviar.component.scss']
+  styleUrls: ['./pagina-enviar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PaginaEnviarComponent implements OnInit {
 
   mapa:mapboxgl1.Map;
   showBox:boolean;
-  cash:boolean;
+  cash:boolean=false;
   card: boolean = false;
+  info:boolean;
+  lat:any;
+  lng:any;
   imagenes=[
     {a:"assets/imagenes/botella1.png",material:"Plástico",img:"botella",flag:false},
     {a:"assets/imagenes/papel1.png",material:"Papel",img:"papel",flag:false},
@@ -31,7 +35,6 @@ export class PaginaEnviarComponent implements OnInit {
     private apt2:UsuariosService,private http:HttpClient) { }
 
   ngOnInit(): void {
-    this.cash = false;
     this.showBox = true;
     this.geolocation();
   }
@@ -46,7 +49,6 @@ export class PaginaEnviarComponent implements OnInit {
       center: [lng, lat], // starting position lng lat
       zoom: 2 // starting zoom
     });
-
   }
 
   pay(){
@@ -58,6 +60,25 @@ export class PaginaEnviarComponent implements OnInit {
     else{
       this.cash = true;
       x.style.backgroundColor ="rgba(50,190,143,0.5)";
+      var y = document.getElementById("credit");
+      y.style.backgroundColor ="rgba(0,0,0,0.1)";
+      this.card = false;
+    }
+  }
+
+  pay2(content,state:boolean){
+    var x = document.getElementById("credit");
+    if (this.card){
+      this.card=false;
+      x.style.backgroundColor ="rgba(0,0,0,0.1)";
+    }
+    else{
+      this.card = true;
+      this.openVerticallyCentered(content,state);
+      x.style.backgroundColor ="rgba(50,190,143,0.5)";
+      var y = document.getElementById("cash");
+      y.style.backgroundColor ="rgba(0,0,0,0.1)";
+      this.cash = false;
     }
   }
 
@@ -104,43 +125,27 @@ export class PaginaEnviarComponent implements OnInit {
 
   save(): void {
     this.loading = true;
+    if (this.validateData()){
+      this.calculetPay();
+    }
+    else{
+      
+    }
+  }
+
+  validateData(){
     if (!this.verifyList()){
       alert("Ingrese al menos un tipo de material a enviar.");
       this.loading = false;
+      return false;
     }
-    else if (!this.cash){
+    else if (!this.cash && !this.card){
       alert("Ingrese un tipo de pago.");
       this.loading = false;
+      return false;
     }
     else{
-      this.delay(2500).then(res=>{
-        this.showBox = false;
-        if (navigator.geolocation){
-          navigator.geolocation.getCurrentPosition((position:Position)=>{
-            var lng = position.coords.longitude;
-            var lat = position.coords.latitude;
-            this.mapa.flyTo({
-              zoom: 13.2,
-              center: [lng,lat],
-              essential: true // this animation is considered essential with respect to prefers-reduced-motion
-            });
-            this.mapa.addControl(new mapboxgl1.NavigationControl());
-            var email = localStorage.getItem("mail");
-            this.apt2.getUserByEmail(email).subscribe(dato=>{
-              var photo = dato[0].urlFoto;
-              var msj = "Estoy aquí";
-              this.createMarker(lng,lat,photo,msj);
-            });
-            var lng1 = -83.03168162521428;
-            var lat1 = 9.987411215113582;
-            this.createMarker(lng1,lat1,"https://image.flaticon.com/icons/svg/1554/1554633.svg","Voy de camino");
-            this.createRoute([lng,lat],[lng1,lat1],this.mapa);
-          });
-        }
-        else{
-          console.log("No soportado");
-        }
-      });
+      return true;
     }
   }
 
@@ -149,7 +154,8 @@ export class PaginaEnviarComponent implements OnInit {
   }
 
   //Método que abre el modal
-  openVerticallyCentered(content) {
+  openVerticallyCentered(content,state:boolean) {
+    this.info = state;
     this.modalService.open(content, { centered: true });
   }
 
@@ -214,6 +220,58 @@ export class PaginaEnviarComponent implements OnInit {
           }
         });
       }
+    });
+  }
+
+  calculetPay(){
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((position:Position)=>{
+        this.lng = position.coords.longitude;
+        this.lat = position.coords.latitude;
+        var url = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving/"+"-83.03168162521428"+","+"9.987411215113582"+";"+this.lng+","+this.lat+"?sources=1&annotations=distance,duration&access_token="+environment.mapboxKey;
+        this.http.get(url).subscribe(res=>{
+          var distance = res["distances"][0][0]/1000;
+          var cut = parseFloat(distance.toFixed(2));
+          var total = cut*0.6+1.5+"$";
+          var retVal = confirm("Total a pagar "+total);
+          console.log(retVal);
+          if(retVal) {
+            this.animationMap();
+          }
+          else {
+            this.loading = false;  
+          }
+        });
+      });
+    }
+    else{
+      alert("No se ha podido obtener la dirección actual");
+      this.loading = false;
+      return 0;
+    }
+  }
+
+  animationMap(){
+    this.delay(300).then(res=>{
+      this.showBox = false;
+      var lng = this.lng;
+      var lat = this.lat;
+      this.mapa.flyTo({
+        zoom: 13.2,
+        center: [lng,lat],
+        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+      });
+      this.mapa.addControl(new mapboxgl1.NavigationControl());
+      var email = localStorage.getItem("mail");
+      this.apt2.getUserByEmail(email).subscribe(dato=>{
+        var photo = dato[0].urlFoto;
+        var msj = "Estoy aquí";
+        this.createMarker(lng,lat,photo,msj);
+      });
+      var lng1 = -83.03168162521428;
+      var lat1 = 9.987411215113582;
+      this.createMarker(lng1,lat1,"https://image.flaticon.com/icons/svg/1554/1554633.svg","Voy de camino");
+      this.createRoute([lng,lat],[lng1,lat1],this.mapa);
     });
   }
 

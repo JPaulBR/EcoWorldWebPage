@@ -21,7 +21,7 @@
                                     <h4> <strong> Seleccione los materiales a enviar</strong> </h4>
                                 </div>
                                 <div class="col-4">
-                                    <img (click)="openVerticallyCentered(content)" class="imgInfo" src="assets/imagenes/info.png" matTooltip="Tarifas de envíos">
+                                    <img (click)="openVerticallyCentered(content,true)" class="imgInfo" src="assets/imagenes/info.png" matTooltip="Tarifas de envíos">
                                 </div>
                             </div>
                             <div class="containerflex" >
@@ -41,7 +41,7 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-6">
-                                    <div class="card" style="background-color: rgba(0,0,0,0.1); cursor: pointer;" (click)="openSnackBar('No disponible','')">
+                                    <div class="card" id="credit" style="background-color: rgba(0,0,0,0.1); cursor: pointer;" (click)="pay2(content,false)">
                                         <div class="centrar">
                                             <img src="https://image.flaticon.com/icons/svg/564/564612.svg" style="width: 80px;">
                                         </div>
@@ -64,34 +64,79 @@
 </div>
 <!--This is for the modal form-->
 <ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">Información de los precios</h4>
-    </div>
-    <div class="modal-body">
-        <div class="containerflex">
+    <div *ngIf="info">
+        <div class="modal-header">
+            <h4 class="modal-title">Información de los precios</h4>
+        </div>
+        <div class="modal-body">
             <div class="containerflex">
-                <img style="width: 30px;" src="assets/imagenes/tarifaBase.png">
+                <div class="containerflex">
+                    <img style="width: 30px;" src="assets/imagenes/tarifaBase.png">
+                </div>
+                <div class="containerflex">
+                    <h3> <strong>Tarifa base</strong></h3>
+                </div>
+                <div class="containerflex">
+                    <h3 style="color: green;"> <strong>1.5 $</strong></h3>
+                </div>
             </div>
             <div class="containerflex">
-                <h3> <strong>Tarifa base</strong></h3>
-            </div>
-            <div class="containerflex">
-                <h3 style="color: green;"> <strong>1.5 $</strong></h3>
+                <div class="containerflex">
+                    <img style="width: 30px;" src="assets/imagenes/tour.png">
+                </div>
+                <div class="containerflex">
+                    <h3> <strong>Costo por km</strong></h3>
+                </div>
+                <div class="containerflex">
+                    <h3 style="color: green;"> <strong>0.6 $</strong></h3>
+                </div>
             </div>
         </div>
-        <div class="containerflex">
-            <div class="containerflex">
-                <img style="width: 30px;" src="assets/imagenes/tour.png">
-            </div>
-            <div class="containerflex">
-                <h3> <strong>Costo por km</strong></h3>
-            </div>
-            <div class="containerflex">
-                <h3 style="color: green;"> <strong>0.6 $</strong></h3>
-            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="modal.close('Close click')" >Entendido</button>
         </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="modal.close('Close click')" >Entendido</button>
+    <div *ngIf="!info">
+        <div class="modal-header">
+            <h5 class="modal-title" style="color: black;"><strong>*El pago se realizará cuando llegue el transportista</strong></h5>
+        </div>
+        <div class="modal-body" style="background-image: none;">
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nombre completo</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Número de la tarjeta</mat-label>
+                    <input matInput type="number" #message maxlength="16">
+                    <mat-hint align="end">{{message.value.length}} / 16</mat-hint>
+                </mat-form-field>
+                <div class="container">
+                    <div class="row">
+                      <div class="col-sm">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Mes de exp</mat-label>
+                            <input matInput type="number">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Año de exp</mat-label>
+                            <input matInput type="number">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-sm">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>CVV</mat-label>
+                            <input matInput type="number">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>    
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="modal.close('Close click')" >Continuar</button>
+        </div>
     </div>
 </ng-template>
