@@ -6,6 +6,7 @@ import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import { HttpClient } from '@angular/common/http';
+import * as CryptoJS from 'crypto-js';
 
 
 @Component({
@@ -41,7 +42,6 @@ export class IngresarComponent implements OnInit {
     else if (!this.validateEmail(this.email1)){
       this.dialogRef.beforeClosed();
       this.openAlert("Correo inválido");
-      //this.openSnackBar("Correo inválido")
     }
     else if (!this.validatePassword(this.password1)){
       this.dialogRef.beforeClosed();
@@ -80,19 +80,28 @@ export class IngresarComponent implements OnInit {
   }
 
   existsUser(page:string){
-    this.apt.getUserByCredential(this.email1,this.password1).subscribe(res=>{
-      if (res.length>0){
-        let items="mail";
-        localStorage.setItem(items,this.email1);
-        this.router.navigate(['/',page]).then(res=>{
-          this.dialogRef.close();
-        }).then(r=>{
-          this.openSnackBar("Ingreso exitoso");          
+    this.apt.getUserByEmail(this.email1).subscribe(res1=>{
+      var pass=res1[0].contra;
+      var decrypt = this.convertPassword(false,pass);
+      if (decrypt===this.password1){
+        this.apt.getUserByCredential(this.email1,pass).subscribe(res=>{
+          if (res.length>0){
+            let items="mail";
+            localStorage.setItem(items,this.email1);
+            this.router.navigate(['/',page]).then(res=>{
+              this.dialogRef.close();
+            }).then(r=>{
+              this.openSnackBar("Ingreso exitoso");          
+            });
+          }
+          else{
+            this.dialogRef.beforeClosed();
+            this.openAlert("Usuario no existente")}
         });
       }
       else{
         this.dialogRef.beforeClosed();
-        this.openAlert("Usuario no existente")
+        this.openAlert("Contraseña incorrecta");    
       }
     });
   }
@@ -117,28 +126,47 @@ export class IngresarComponent implements OnInit {
   }  
 
   exitsUserWithEmail(page:string,email:string){
+    var pass = this.convertPassword(true,this.password2);
+    var flag = false;
     this.apt.getUserByEmail(email).subscribe(res=>{
+      console.log(res.length);
       if (res.length===0){
+        flag=true;
         this.apt.createPointsForUser(email);
         var listUser={
           nombre: this.name1,
           apellido: this.lastName1,
           email: this.email2,
-          contra: this.password2,
+          contra: pass,
           permiso:false,
           reciclado:0,
           urlFoto: "https://image.flaticon.com/icons/svg/1177/1177568.svg"
         }
-        this.apt.addUser(listUser).then(res=>{
+        this.apt.addUser(listUser).then(res2=>{
           this.openSnackBar("Registrado exitosamente");
           this.clearData();
+          this.dialogRef.close();
+          //this.anotherPage(this.email2);
         });
       }
       else{
-        this.dialogRef.beforeClosed();
-        this.openAlert("Correo existente");
+        if (!flag){
+          this.dialogRef.beforeClosed();
+          this.openAlert("Correo existente");
+        }
       }
     });
+  }
+
+  convertPassword(type:boolean,password:string){
+    if (type){
+      var conversionEncryptOutput = CryptoJS.AES.encrypt(password.trim(), "nullnone").toString();
+      return conversionEncryptOutput;
+    }
+    else{
+      var conversionDecryptOutput = CryptoJS.AES.decrypt(password.trim(), "nullnone").toString(CryptoJS.enc.Utf8);
+      return conversionDecryptOutput;
+    }
   }
 
   clearData(){
