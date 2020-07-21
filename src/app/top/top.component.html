@@ -19,7 +19,10 @@
                         <section id="team" class="pb-5">
                             <div class="container">
                                 <h5 class="section-title h1">Top de las personas que más han reciclado</h5>
-                                <div class="row">
+                                <div class="item" *ngIf="loading">
+                                    <ngx-skeleton-loader count="14" animation="pulse" appearance="Facebook"></ngx-skeleton-loader>
+                                  </div>
+                                <div class="row" *ngIf="!loading">
                                 <!-- Team member -->
                                     <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let i of users; let j = index">
                                         <div class="image-flip" ontouchstart="this.classList.toggle('hover');">

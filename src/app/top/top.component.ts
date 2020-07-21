@@ -10,12 +10,15 @@ import { UsuariosService } from '../tablas/usuarios/usuarios.service';
 export class TopComponent implements OnInit {
 
   users:any;
+  loading:boolean;
 
   constructor(private apt: UsuariosService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.apt.getUserByOrder().subscribe(res=>{
       this.users = res;
+      this.loading = false;
     });
   }
 

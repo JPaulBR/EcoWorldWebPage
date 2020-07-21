@@ -47,11 +47,11 @@
                 (click)="logIn('menu')">
                 Ingresar
               </button>
-
-              <button
+            </form>
+            <button
                 mat-raised-button
                 class="login-button"
-                style="background: #3b5998; color: white;">
+                style="background: #3b5998; color: white;" (click)="loginFacebook()">
                 Iniciar con Facebook
               </button>
               <button
@@ -60,7 +60,6 @@
                 style="background: transparent; color: grey;">
                 Olvide mi contraseña
               </button>
-            </form>
           </mat-card-content>
       </mat-tab>
       <mat-tab label="Registrarme">

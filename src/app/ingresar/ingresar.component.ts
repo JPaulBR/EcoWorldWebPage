@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { UsuariosService } from '../tablas/usuarios/usuarios.service';
 import {MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -21,10 +24,9 @@ export class IngresarComponent implements OnInit {
   iconPassword:string;
   typePassword:string;
 
-
   constructor(private router: Router,private snackBar: MatSnackBar,
     private apt:UsuariosService,public dialogRef:MatDialogRef<IngresarComponent>,
-    @Inject(MAT_DIALOG_DATA) public message:string) {}
+    @Inject(MAT_DIALOG_DATA) public message:string, public afAuth:AngularFireAuth,private http:HttpClient) {}
 
   ngOnInit(): void {
     this.iconPassword = "visibility_off";
@@ -161,6 +163,49 @@ export class IngresarComponent implements OnInit {
 
   addInput(){
     console.log("Funciona");
+  }
+
+  loginFacebook(){
+    this.afAuth.signInWithPopup(new auth.FacebookAuthProvider()).then(res=>{
+      var email = res.user.email;
+      var nameComplete = res.user.displayName;
+      var separator = nameComplete.split(" ");
+      var name = separator[0];
+      var last_name = separator[separator.length-1];
+      this.apt.getUserByEmail(email).subscribe(res1=>{
+        if(res1.length===0){
+          this.apt.createPointsForUser(email);
+          var listUser={
+            nombre: name,
+            apellido: last_name,
+            email: email,
+            contra: "YOUR_PASSWORD_FACEBOOK",
+            permiso:false,
+            reciclado:0,
+            urlFoto: "https://image.flaticon.com/icons/svg/1177/1177568.svg"
+          }
+          this.apt.addUser(listUser).then(res2=>{
+            this.openSnackBar("Registrado exitosamente");
+            this.clearData();
+            this.anotherPage(email);
+          });
+        }
+        else{
+          this.clearData();
+          this.anotherPage(email);      
+        }
+      });
+    });
+  }
+
+  anotherPage(email:string){
+    let items="mail";
+    localStorage.setItem(items,email);
+    this.router.navigate(['/','menu']).then(res=>{
+      this.dialogRef.close();
+    }).then(r=>{
+      this.openSnackBar("Ingreso exitoso");          
+    }); 
   }
 
 }
