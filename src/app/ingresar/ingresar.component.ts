@@ -27,6 +27,7 @@ export class IngresarComponent implements OnInit {
   iconPassword:string;
   typePassword:string;
   recEmail:string;
+  process:boolean;
 
   constructor(private router: Router,private snackBar: MatSnackBar,
     private apt:UsuariosService,public dialogRef:MatDialogRef<IngresarComponent>,
@@ -36,6 +37,7 @@ export class IngresarComponent implements OnInit {
   ngOnInit(): void {
     this.iconPassword = "visibility_off";
     this.typePassword = "password";
+    this.process = false;
   }
 
   logIn(page:string){
@@ -245,19 +247,43 @@ export class IngresarComponent implements OnInit {
   }
 
   sendEmailLocal(email:string){
+    this.process = true;
     if (email===" " || email===undefined){
       alert("Ingrese un correo válido");
+      this.process = false;
     }
     else{
-      /*var data={
+      var data={
         email: email,
         password:"qwerty20"
-      }*/
-      //var url = "http://192.168.1.11:3000/send-email";
-      this.openSnackBar("Correo enviado exitosamente");
-      this.modalService.dismissAll();
-      this.recEmail = " ";
-      //return this.http.post(url,data);
+      }
+      var url = "http://192.168.1.11:3000/send-email";
+      var flag = false;
+      return this.http.post(url,data).subscribe(
+        data=> {
+          flag = true;
+          alert("Se ha enviado el correo exitosamente");
+          this.modalService.dismissAll();
+          this.recEmail = " ";
+          this.process = false;
+        },
+        err =>{
+          if (!flag){
+            console.log(err);
+            this.modalService.dismissAll();
+            this.recEmail = " ";
+            this.process = false;
+            alert("El servidor no está disponible");
+          }
+        }, () => {
+          if (!flag){
+            this.modalService.dismissAll();
+            this.recEmail = " ";
+            this.process = false;
+            alert("El servidor no está disponible");
+          }
+        }
+      );
     }
   }
 
