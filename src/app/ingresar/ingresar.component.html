@@ -57,7 +57,7 @@
               <button
                 mat-button
                 class="login-button"
-                style="background: transparent; color: grey;" (click)="convertPassword(false,'U2FsdGVkX181Fc6JJ5UujStLVrvKx+sSflP6Es/gfHk=')" >
+                style="background: transparent; color: grey;" (click)="openVerticallyCentered(content)" >
                 Olvide mi contraseña
               </button>
           </mat-card-content>
@@ -142,4 +142,19 @@
       </mat-tab>
     </mat-tab-group>
 </mat-card>
-  
+
+<!--This is for the modal form-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Recuperación de contraseña</h4>
+  </div>
+  <div class="modal-body">
+    <mat-form-field class="example-full-width">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput [(ngModel)]="recEmail">
+    </mat-form-field>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="sendEmailLocal(recEmail)" >Enviar</button>
+  </div>
+</ng-template>

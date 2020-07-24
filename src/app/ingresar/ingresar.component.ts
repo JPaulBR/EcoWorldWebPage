@@ -7,6 +7,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 import { HttpClient } from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -24,10 +26,12 @@ export class IngresarComponent implements OnInit {
   password2:string;
   iconPassword:string;
   typePassword:string;
+  recEmail:string;
 
   constructor(private router: Router,private snackBar: MatSnackBar,
     private apt:UsuariosService,public dialogRef:MatDialogRef<IngresarComponent>,
-    @Inject(MAT_DIALOG_DATA) public message:string, public afAuth:AngularFireAuth,private http:HttpClient) {}
+    @Inject(MAT_DIALOG_DATA) public message:string, public afAuth:AngularFireAuth,
+    private http:HttpClient,private firestore: AngularFirestore,private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.iconPassword = "visibility_off";
@@ -234,6 +238,35 @@ export class IngresarComponent implements OnInit {
     }).then(r=>{
       this.openSnackBar("Ingreso exitoso");          
     }); 
+  }
+
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
+  }
+
+  sendEmailLocal(email:string){
+    if (email===" " || email===undefined){
+      alert("Ingrese un correo válido");
+    }
+    else{
+      /*var data={
+        email: email,
+        password:"qwerty20"
+      }*/
+      //var url = "http://192.168.1.11:3000/send-email";
+      this.openSnackBar("Correo enviado exitosamente");
+      this.modalService.dismissAll();
+      this.recEmail = " ";
+      //return this.http.post(url,data);
+    }
+  }
+
+  //This consume an api by firebase (is not working because it change the billing account);
+  sendEmailByFirebase(name:string,email:string){
+    var password = 'GENERATE_PASSWORD';
+    this.firestore.collection('submit').add({name,email,password}).then(res=>{
+      alert("Correo enviado exitosamente");
+    }).catch(err=>console.log(err));
   }
 
 }
