@@ -48,7 +48,7 @@
                                       <div class="card-body">
                                         <mat-form-field class="example-full-width">
                                           <mat-label>Lugar</mat-label>
-                                          <input [(ngModel)]="place" (click)="openVerticallyCentered(content)" matInput type="text" readonly>
+                                          <input [(ngModel)]="place" (click)="openVerticallyCentered(content,true)" matInput type="text" readonly>
                                         </mat-form-field>
                                         <mat-form-field class="example-full-width">
                                           <mat-label>Horario</mat-label>
@@ -149,7 +149,7 @@
                           <div class="card-body">
                             <mat-form-field class="example-full-width">
                               <mat-label>Lugar</mat-label>
-                              <input [(ngModel)]="place" (click)="openVerticallyCentered(content)" matInput type="text" readonly>
+                              <input [(ngModel)]="place" (click)="openVerticallyCentered(content,true)" matInput type="text" readonly>
                             </mat-form-field>
                             <mat-form-field class="example-full-width">
                               <mat-label>Horario</mat-label>
@@ -174,7 +174,7 @@
                     <!--Fin de la línea-->
                     <!--Cuadro de permiso-->
                     <div *ngIf="permiso" class="w3-col m12">
-                      <mat-card style="cursor: pointer;" (click)="openDialog()">
+                      <mat-card style="cursor: pointer;" (click)="openVerticallyCentered(content,false)">
                         <mat-card-header style="justify-content: center;">
                           <mat-card-title>Información</mat-card-title>
                         </mat-card-header>
@@ -195,11 +195,28 @@
 
 <!--This is for the modal form-->
 <ng-template #content let-modal>
-  <div class="modal-body" id="sizeMap">
-    <div id="map1"></div>
+  <div *ngIf="showDialog">
+    <div class="modal-body" id="sizeMap">
+      <div id="map1"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-success" (click)="savePlace()">Guardar</button>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
-    <button type="button" class="btn btn-success" (click)="savePlace()">Guardar</button>
+  <div *ngIf="!showDialog">
+    <div class="modal-header">
+      <h4 class="modal-title">Petición de ser anfitrión de centros</h4>
+    </div>
+    <div class="modal-body">
+      <mat-form-field class="example-full-width">
+        <mat-label>Escriba su mensaje</mat-label>
+        <textarea matInput placeholder="Por ejemplo, quisiera crear mi propio centro..." [(ngModel)]="comentary"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-success" (click)="sendRequest()" [disabled]="disabled">Guardar</button>
+    </div>
   </div>
 </ng-template>

@@ -29,6 +29,16 @@ export class UsuariosService {
     return this.usuarios;
   }
 
+  addcomments(msj:any){
+    var listaComentarios = this.db2.collection<any>('comentarios');
+    return listaComentarios.add(msj);
+  }
+
+  addRequest(req:any){
+    var request = this.db2.collection<any>('solicitudes');
+    return request.add(req);
+  }
+
   addUser(apt:any){
     return this.listaUsuarios.add(apt);
   }

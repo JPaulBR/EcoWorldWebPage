@@ -31,7 +31,24 @@
           <div class="w3-col m6 w3-padding-large">
             <h1 class="w3-center">¿Qué es EcoWorld?</h1><br>
             <p class="w3-large">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              EcoWorld es una plataforma (web y móvil) que le permite a cualquier usuario reciclar sin ninguna excusa,
+              ¿por qué? Simple, cada persona que está registrada en Ecoworld podrá ver donde están ubicados
+              los sitios más cercanos para ir a reciclar. De esta manera si algún usuario no tiene a dónde 
+              ir y tiene material para reciclar, este sitio es el ideal para encontrar uno. 
+            </p>
+            <br>
+            <p class="w3-large">
+              No solo eso, este sitio le permite a los usuarios reciclar sin tener que salir de la casa, ya 
+              que cuenta con una opción que le brinda a las personas un transporte que llega desde la puerta 
+              de la casa para recoger todo ese material que desea reciclar. Se le cobra un monto, pero los precios 
+              no son excesivos y al contrario, son completamente accesibles. Ya que por supuesto, no nos interesa
+              el dinero, queremos un mundo más limpio. Sin embargo hay costos que cubrir.
+            </p>
+            <br>
+            <p class="w3-large">
+              Esto y muchas cosas más se pueden encontrar en EcoWorld. Si desea comunicarse con alguno 
+              de nuestro equipo hágalo sin ningún compromiso. En la parte de abajo al final a una opción 
+              de contacto, su opinión es muy importante para nosotros.
             </p>
           </div>
         </div>
@@ -71,9 +88,9 @@
           <p>Ofrecemos todos estos servicios, sin embargo, su opinión es muy importante para nosotros, no dude en contactarnos.</p>
           <p>También puede contactarnos por teléfono 2758000 o enviar un correo a ecoworld@eco.cr o puede enviarnos un mensaje por aqui:</p>
           <form action="/action_page.php" target="_blank">
-            <p><input class="w3-input w3-padding-16" type="text" placeholder="Nombre" required name="Name"></p>
-            <p><input class="w3-input w3-padding-16" type="text" placeholder="Mensaje \ Comentarios \ Opinión" required name="Message"></p>
-            <p><button mat-raised-button style="background: #22bb33; color: white;">ENVIAR MENSAJE</button></p>
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Nombre" required name="Name" [(ngModel)]="user"></p>
+            <p><input class="w3-input w3-padding-16" type="text" placeholder="Mensaje \ Comentarios \ Opinión" required name="Message" [(ngModel)]="comentary"></p>
+            <p><button mat-raised-button style="background: #22bb33; color: white;" (click)="sendComentary()" [disabled]="disabled">ENVIAR MENSAJE</button></p>
           </form>
         </div>
         

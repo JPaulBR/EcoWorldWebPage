@@ -37,11 +37,11 @@ import { PaginaEnviarComponent } from './pagina-enviar/pagina-enviar.component';
 import { TopComponent } from './top/top.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { AboutComponent } from './about/about.component';
-import { EnviaCorreosComponent } from './envia-correos/envia-correos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from './pipes/pipes.module';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -56,8 +56,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     PaginaEnviarComponent,
     TopComponent,
     PerfilComponent,
-    AboutComponent,
-    EnviaCorreosComponent
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -87,9 +86,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     HttpClientModule,
     NgbModule,
     PipesModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents:[IngresarComponent]
 })

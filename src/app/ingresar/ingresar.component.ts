@@ -246,45 +246,79 @@ export class IngresarComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
 
-  sendEmailLocal(email:string){
+  validateEmailLocal(email:string){
     this.process = true;
     if (email===" " || email===undefined){
       alert("Ingrese un correo válido");
       this.process = false;
     }
     else{
-      var data={
-        email: email,
-        password:"qwerty20"
-      }
-      var url = "http://192.168.1.11:3000/send-email";
-      var flag = false;
-      return this.http.post(url,data).subscribe(
-        data=> {
+      this.apt.getUserByEmail(email).subscribe(res=>{
+        var flag = false
+        if (res.length>0){
+          var key = res[0].key;
+          this.sendEmailLocal(email,key);
           flag = true;
-          alert("Se ha enviado el correo exitosamente");
+        }
+        else{
+          if (!flag){
+            alert("Correo no registrado");
+            this.process = false;
+          }
+        }
+      });
+    }
+  }
+
+  sendEmailLocal(email:string,key:string){
+    var data={
+      email: email,
+      password:"qwerty20"
+    }
+    var encrypt = this.convertPassword(true,"qwerty20");
+    var url = "http://192.168.1.11:3000/send-email";
+    var flag = false;
+    return this.http.post(url,data).subscribe(
+      data=> {
+        flag = true;
+        this.changePassword(email, encrypt);
+        alert("Se ha enviado el correo exitosamente");
+        this.modalService.dismissAll();
+        this.recEmail = " ";
+        this.process = false;
+      },
+      err =>{
+        if (!flag){
+          console.log(err);
           this.modalService.dismissAll();
           this.recEmail = " ";
           this.process = false;
-        },
-        err =>{
-          if (!flag){
-            console.log(err);
-            this.modalService.dismissAll();
-            this.recEmail = " ";
-            this.process = false;
-            alert("El servidor no está disponible");
-          }
-        }, () => {
-          if (!flag){
-            this.modalService.dismissAll();
-            this.recEmail = " ";
-            this.process = false;
-            alert("El servidor no está disponible");
-          }
+          alert("El servidor no está disponible");
         }
-      );
-    }
+      }, () => {
+        if (!flag){
+          this.modalService.dismissAll();
+          this.recEmail = " ";
+          this.process = false;
+          alert("El servidor no está disponible");
+        }
+      }
+    );
+  }
+
+  changePassword(email:string, password:string){
+    this.apt.getUserByEmail(email).subscribe(res=>{
+      var user={
+        nombre: res[0].nombre,
+        apellido: res[0].apellido,
+        email: email,
+        contra: password,
+        permiso:res[0].permiso,
+        reciclado:res[0].reciclado,
+        urlFoto: res[0].urlFoto
+      }
+      this.apt.updateUser(user,res[0].key);
+    });
   }
 
   //This consume an api by firebase (is not working because it change the billing account);

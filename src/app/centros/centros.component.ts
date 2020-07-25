@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import {EnviaCorreosComponent} from '../envia-correos/envia-correos.component';
 import { UsuariosService } from '../tablas/usuarios/usuarios.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as mapboxgl from 'mapbox-gl';
@@ -9,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CentrosService } from '../tablas/centros/centros.service';
 import { User } from '../tablas/usuarios/usuario';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-centros',
@@ -32,6 +32,7 @@ export class CentrosComponent implements OnInit {
   agregar = false;
   permiso = false;
   dialogRef: MatDialogRef <any>;
+  showDialog: boolean;
 
   lat:any;
   lng:any;
@@ -63,11 +64,13 @@ export class CentrosComponent implements OnInit {
   glass:number=0;
   batery:number=0;
 
+  myDate = new Date();
+  comentary:string;
+  disabled:boolean=false;
+
   constructor(private dialog: MatDialog, private apt:UsuariosService,
     private modalService: NgbModal,private http:HttpClient,private snackBar: MatSnackBar,
-    private apt2: CentrosService) {
-      //this.notFound = false;
-      //this.found = false;
+    private apt2: CentrosService,private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -125,9 +128,15 @@ export class CentrosComponent implements OnInit {
     });
   }
 
-  openVerticallyCentered(content) {
+  openVerticallyCentered(content,flag:boolean) {
     this.modalService.open(content, { centered: true });
-    this.createMap();
+    if (flag){
+      this.showDialog = flag;
+      this.createMap();
+    }
+    else{
+      this.showDialog = flag;
+    }
   }
 
   checkUser(){
@@ -156,14 +165,7 @@ export class CentrosComponent implements OnInit {
   }
 
   openDialog(){
-    this.dialogRef = this.dialog.open(EnviaCorreosComponent, {
-      height: '42%',
-      width: '47%',
-      panelClass: ["centerDialog"]
-    });
-    this.dialogRef.afterClosed().subscribe(result => {
-      this.dialogRef = null;
-    });
+    
   }
 
   //i: is for posicion in the list (what kind of material is)
@@ -412,6 +414,29 @@ export class CentrosComponent implements OnInit {
     this.tetra=0;
     this.glass=0;
     this.batery=0;
+  }
+
+  sendRequest(){
+    this.disabled = true;
+    var email = localStorage.getItem("mail");
+    if (this.comentary === " " || this.comentary===undefined){
+      alert("Ingrese todos los datos");
+      this.disabled = false;
+    }
+    else{
+      var myDate = this.datePipe.transform(this.myDate, 'dd-MM-yyyy hh:MM:ss');
+      var lista = {
+        comentario: this.comentary,
+        fecha: myDate,
+        correo: email
+      }
+      this.apt.addRequest(lista).then(resp=>{
+        this.comentary=" ";
+        this.disabled = false;
+        alert("Se ha enviado el mensaje correctamente, dentro de poco será contactado");
+        this.dialogRef.close();
+      });
+    }
   }
 
 }
