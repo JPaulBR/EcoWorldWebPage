@@ -3,6 +3,7 @@ import { UsuariosService } from '../tablas/usuarios/usuarios.service';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-perfil',
@@ -60,7 +61,7 @@ export class PerfilComponent implements OnInit {
       this.fills[0].value = val[0].nombre;
       this.fills[1].value = val[0].apellido;
       this.fills[2].value = val[0].email;
-      this.fills[3].value = val[0].contra;
+      this.fills[3].value = this.convertPassword(false,val[0].contra);
       this.image = val[0].urlFoto;
       this.permiso = val[0].permiso;
       this.reciclado = val[0].reciclado;
@@ -103,7 +104,7 @@ export class PerfilComponent implements OnInit {
         nombre : this.fills[0].value,
         apellido : this.fills[1].value,
         email : this.fills[2].value,
-        contra : this.fills[3].value,
+        contra : this.convertPassword(true,this.fills[3].value),
         urlFoto : this.image,
         permiso : this.permiso,
         reciclado : this.reciclado  
@@ -132,6 +133,17 @@ export class PerfilComponent implements OnInit {
     else{
       this.iconPassword="visibility_off";
       this.fills[3].type="password";
+    }
+  }
+
+  convertPassword(type:boolean,password:string){
+    if (type){
+      var conversionEncryptOutput = CryptoJS.AES.encrypt(password.trim(), "nullnone").toString();
+      return conversionEncryptOutput;
+    }
+    else{
+      var conversionDecryptOutput = CryptoJS.AES.decrypt(password.trim(), "nullnone").toString(CryptoJS.enc.Utf8);
+      return conversionDecryptOutput;
     }
   }
 
